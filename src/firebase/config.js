@@ -1,6 +1,9 @@
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
-import 'firebase/firestore';
+//import * as firebase from 'firebase/app';
+//import 'firebase/storage';
+//import 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 
 
@@ -16,7 +19,7 @@ const firebaseConfig = {
   // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const projectStorage = firebase.storage();
-const projectFirestore = firebase.firestore();
+const projectStorage = getStorage();
+const projectFirestore = getFirestore();
 
 export { projectStorage, projectFirestore};

@@ -1,0 +1,34 @@
+/* HomePage.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  align-content: center;
+  width: 80vh;
+}
+
+.navbar {
+  width: 80vh;
+  height: 20vh; /* Altura da navbar será 20% da altura da visualização */
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Espaçamento entre os itens */
+  height: 80vh; /* Altura da galeria será 80% da altura da visualização */
+  padding: 1%; /* Espaçamento interno para não colar nas bordas */
+  overflow-y: auto; /* Permite rolagem se o conteúdo exceder a altura */
+}
+
+.gallery-item {
+  width: 30%; /* Cada item da galeria ocupa 30% da largura */
+  margin-bottom: 1%; /* Espaçamento na parte inferior de cada item */
+  box-sizing: border-box; /* O padding e border são incluídos na largura total */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%; /* A altura da imagem se ajusta ao contêiner */
+  object-fit: cover; /* Garante que a imagem cubra todo o contêiner sem distorcer */
+}
