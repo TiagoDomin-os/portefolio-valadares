@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    transition: transform 300ms ease-in-out;}
+    transition: transform 200ms ease-in-out;}
   
   .gallery-item {
     background: #333; /* Cor de fundo para simular imagens */
@@ -24,6 +24,8 @@
     cursor: pointer;
     aspect-ratio: 16/9;
     background-color: #ccc;
+
+
   
   }
   
@@ -76,7 +78,7 @@
     width: fit-content;
     height: 100%;
     transform: translate(-50%, -50%); /* Centraliza a imagem */
-    transition: transform 0.3s ease; /* Suaviza a transição para efeito de hover */
+    transition: all 0.3s ease; /* Suaviza a transição para efeito de hover */
   }
   
   
@@ -84,7 +86,7 @@
   @media (min-width: 1400px) {
     .gallery-container {
       width: 88%;
-    }
+          }
   }
   
 

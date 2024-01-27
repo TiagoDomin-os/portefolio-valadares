@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import '../styles/HomeGalery.css';
-import '../styles/HomePageFilter.css';
+import '../styles/Main/HomeGalery.css';
+import '../styles/Main/HomePageFilter.css';
 
 
 const Gallery = ({ projetos }) => {
