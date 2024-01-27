@@ -1,0 +1,133 @@
+
+
+/* Estilos para Galeria */
+.gallery-container {
+    overflow: hidden;
+    width: 95%;
+    margin: auto;
+  }
+  
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    transition: transform 300ms ease-in-out;}
+  
+  .gallery-item {
+    background: #333; /* Cor de fundo para simular imagens */
+    padding-top: 57%; /* Proporção para as imagens baseada na largura do container */
+    position: relative; /* Posição relativa para posicionar absolutamente a imagem dentro */
+    overflow: hidden; /* Esconder qualquer parte da imagem que exceda o contêiner */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Suaviza as transições */
+  
+    position: relative; /* Necessário para posicionar os elementos de título e categoria */
+    cursor: pointer;
+    aspect-ratio: 16/9;
+    background-color: #ccc;
+  
+  }
+  
+  /*Estilo hover*/
+  .gallery-item:hover .gallery-item-img {
+    opacity: 0.1; /* Diminui a opacidade da imagem no hover */
+    transition: opacity 0.5s ease; /* Suaviza a transição de opacidade */
+    
+  }
+  
+  .gallery-item-title, .gallery-item-category {
+    position: absolute;
+    width: 100%; /* Faz com que o título e categoria ocupem todo o espaço horizontal */
+    text-align: center; /* Centraliza o texto horizontalmente */
+    left: 0;
+    opacity: 0; /* Inicialmente escondido */
+    transition: opacity 0.8s ease; /* Suaviza a transição de opacidade */
+    pointer-events: none; /* Evita que o texto interfira no evento de hover */
+  }
+  
+  .gallery-item-title {
+    top: 40%; /* Ajuste conforme necessário para posicionar verticalmente */
+    color: #ffffff; /* Cor do texto */
+    font-size: 1.5rem; /* Tamanho do texto */
+  }
+  
+  .gallery-item-category {
+    top: 50%; /* Ajuste conforme necessário para posicionar verticalmente */
+    color: #fff; /* Cor do texto */
+    font-size: 1rem; /* Tamanho do texto */
+  }
+  
+  .gallery-item:hover .gallery-item-title,
+  .gallery-item:hover .gallery-item-category {
+    opacity: 1; /* Mostra o título e a categoria no hover */
+    transition: 0.8 ease;
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+    color: #ffffff; 
+  }
+  
+  
+  
+  /*Estilismo imagem*/
+  .gallery-item img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    aspect-ratio: 16/9;
+    width: fit-content;
+    height: 100%;
+    transform: translate(-50%, -50%); /* Centraliza a imagem */
+    transition: transform 0.3s ease; /* Suaviza a transição para efeito de hover */
+  }
+  
+  
+  /* Estilo para telas com largura superior a 1400px */
+  @media (min-width: 1400px) {
+    .gallery-container {
+      width: 88%;
+    }
+  }
+  
+
+  @media (max-width: 690px) {
+    .gallery-container {
+      width: 98%; /* Largura da galeria para telas pequenas */
+      margin: auto;
+    }
+  
+    .gallery {
+      grid-template-columns: 1fr; /* Apenas uma coluna para os itens da galeria */
+      gap: 1rem; /* Ajuste o espaçamento conforme necessário */
+    }
+  
+    .gallery-item {
+      padding-top: 57%; /* Ajuste a proporção caso necessário para manter a consistência */
+        
+    }
+  }
+
+
+
+  /*Otimização*/
+
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #000;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+
+
+  .gallery-item-skeleton {
+    height: 0;
+    padding-bottom: 56.25%; /* Proporção de 16:9 */
+    background-color: #e0e0e0;
+  }
+  

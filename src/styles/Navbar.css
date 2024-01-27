@@ -1,0 +1,58 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Distribui espaço entre logo e menu */
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    height: 10vh;
+    position: relative;
+}
+
+.navbar-container {
+    width: 95%; /* Largura padrão para telas menores */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    transition: width 0.3s ease; /* Transição suave para mudanças de largura */
+    display: flex; /* Adiciona flex para alinhar logo e menu */
+    justify-content: space-between; /* Distribui espaço entre logo e menu */
+    position: relative;
+}
+
+/* Estilo para telas com largura igual ou superior a 1400px */
+@media (min-width: 1400px) {
+    .navbar-container {
+        width: 88%; /* Largura para telas maiores */
+    }
+}
+
+.logo {
+    
+    margin-bottom: 50px;
+}
+
+.menu span {
+    margin-right: 2rem; /* Ajuste conforme necessário */
+    cursor: pointer;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+/* Para o último item do menu não ter margem à direita */
+.menu span:last-child {
+    margin-right: 0;
+}
+
+
+.menu .about {
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+    color: #000; /* Cor preta para o texto */
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    position: absolute; /* Posicionamento absoluto dentro da navbar */
+    bottom: 1rem; /* Ajuste conforme necessário para alinhar verticalmente */
+    right: 2rem; /* Distância da direita */
+    transition: font-weight 0.1s ease; /* Transição suave para o peso da fonte */
+}
+
+.menu .about:hover {
+    font-weight: 700; /* Negrito ao passar o mouse */
+}
