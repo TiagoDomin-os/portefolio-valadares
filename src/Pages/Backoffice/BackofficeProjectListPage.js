@@ -3,8 +3,8 @@ import { projectFirestore } from '../../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
-import Navbar from '../../Components/Navbar';
-
+import BackofficeNavbar from '../../Components/BackofficeNavbar';
+import '../../styles/BackOffice/ProjectList.css'; // Caminho do arquivo CSS
 
 const BackofficeProjectListPage = () => {
   const [projetos, setProjetos] = useState([]);
@@ -24,19 +24,25 @@ const BackofficeProjectListPage = () => {
 
   return (
     <>
-      <Navbar />
+      <BackofficeNavbar />
       <div className="project-list-container">
         <h2>Lista de Projetos</h2>
-        <ul>
-          {projetos.map(projeto => (
-            <li key={projeto.id}>
-              <Link to={`/backoffice/projetos/${projeto.id}`}>
-                {projeto.nome} - {projeto.categoria}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>    </>
+        {projetos.map(projeto => (
+          <div className="project-card" key={projeto.id}>
+            <div className="project-image">
+              {/* Adicione a imagem destacada aqui se disponível */}
+            </div>
+            <div className="project-details">
+              <div className="project-title">{projeto.nome}</div>
+              <div className="project-category">{projeto.categoria}</div>
+            </div>
+            <Link to={`/backoffice/projetos/${projeto.id}`} className="edit-button">
+              Editar
+            </Link>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

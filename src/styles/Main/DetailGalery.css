@@ -1,0 +1,93 @@
+.detail-gallery {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 95%;
+  margin: auto;
+}
+
+.featured-media {
+  position: relative; /* Mantém a proporção */
+  width: 100%; /* Ocupa a largura total do contêiner */
+  padding-top: 56.25%; /* Proporção de 16:9, ajuste conforme necessário para suas imagens */
+  height: 0; /* Isso é necessário para a técnica de proporção de padding */
+  max-height: 88vh; /* Adiciona max-height ao contêiner */
+  overflow: hidden;
+}
+
+.featured-media img,
+.featured-media iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem preencha o espaço, pode ser ajustado para 'contain' se não quiser cortar a imagem */
+}
+
+
+
+
+
+
+.thumbnail-container {
+  display: flex;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.thumbnail {
+  margin-right: 10px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  width: calc(25% - 10px); /* 4 itens por linha, ajuste a margem conforme necessário */
+}
+
+.thumbnail-media {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* Mantém a proporção de 16:9 (100 / 16 * 9) */
+  height: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.thumbnail-media img,
+.thumbnail-media iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+
+
+@media (min-width: 801px) {
+  .thumbnail {
+    width: calc(20% - 10px); /* 4 itens por linha */
+  }
+}
+
+@media (max-width: 800px) {
+  .thumbnail {
+    width: calc(50% - 10px); /* 2 itens por linha */
+  }
+}
+
+@media (min-width: 1400px) {
+  .detail-gallery {
+    
+    /*Alterar para 78% para o video acabar no bottom*/
+    width: 88%;
+  }
+}
+
+@media (max-width: 690px) {
+  .detail-gallery {
+    width: 98%;
+  }
+}

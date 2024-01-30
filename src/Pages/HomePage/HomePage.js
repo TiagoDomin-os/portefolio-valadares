@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import '../../styles/Main/HomePage.css';
 import Gallery from '../../Components/HomeGalery';
 import Navbar from '../../Components/Navbar';
+import Footer from '../../Components/Footer';
 
 
 const HomePage = () => {
@@ -27,6 +28,7 @@ const HomePage = () => {
     <>
       <Navbar />
       <Gallery projetos={projetos} />
+      <Footer />
     </>
   );
 };

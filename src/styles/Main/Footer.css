@@ -1,0 +1,44 @@
+/* Footer.css */
+.footer {
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh;
+    width: 95%;
+    margin: 0 auto;
+    transition: width 0.3s ease;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .footer-links a {
+    color: black !important; /* Usar apenas se necessário e não houver outra opção */
+    
+}
+  
+  .footer-text {
+    text-align: 'center';
+    margin-top: 10px;
+  }
+  
+  /* Estilo responsivo para larguras de tela maiores */
+  @media (min-width: 1400px) {
+    .footer {
+      width: 88%;
+    }
+  }
+  
+  /* Estilo responsivo para larguras de tela menores */
+  @media (max-width: 690px) {
+    .footer {
+      width: 98%;
+    }
+  }
+  

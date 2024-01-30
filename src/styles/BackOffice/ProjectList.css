@@ -1,0 +1,51 @@
+.project-list-container {
+    padding: 20px;
+    background: #f5f5f5; /* Cor de fundo da área da lista */
+    min-height: 100vh; /* Altura mínima */
+  }
+  
+  .project-card {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    margin-bottom: 10px; /* Espaço entre os cartões */
+    padding: 10px;
+    border-radius: 4px; /* Bordas arredondadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve para o cartão */
+  }
+  
+  .project-image {
+    width: 100px; /* Largura fixa para a imagem destacada */
+    height: 60px; /* Altura fixa para a imagem destacada */
+    background: #ccc; /* Cor de fundo caso não haja imagem */
+    margin-right: 20px; /* Espaço entre a imagem e o texto */
+    border-radius: 4px; /* Bordas arredondadas para a imagem */
+  }
+  
+  .project-details {
+    flex-grow: 1; /* Ocupa o espaço restante */
+  }
+  
+  .project-title {
+    font-size: 18px; /* Tamanho da fonte do título */
+    font-weight: bold; /* Título em negrito */
+    margin-bottom: 5px; /* Espaço abaixo do título */
+  }
+  
+  .project-category {
+    font-size: 14px; /* Tamanho da fonte da categoria */
+    color: #666; /* Cor da fonte para a categoria */
+  }
+  
+  .edit-button {
+    padding: 10px 20px; /* Padding interno para o botão */
+    background: #007bff; /* Cor de fundo para o botão */
+    color: white; /* Cor da fonte para o botão */
+    text-decoration: none; /* Remove sublinhado do link */
+    border-radius: 4px; /* Bordas arredondadas para o botão */
+  }
+  
+  .edit-button:hover {
+    background: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+  }
+  

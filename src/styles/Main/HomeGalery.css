@@ -5,6 +5,7 @@
     overflow: hidden;
     width: 95%;
     margin: auto;
+    min-height: 80vh;
   }
   
   .gallery {

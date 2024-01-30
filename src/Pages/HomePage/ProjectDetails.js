@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { projectFirestore } from '../../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
+import Navbar from '../../Components/Navbar';
+import DetailGallery from '../../Components/DetailGalery';
+import Footer from '../../Components/Footer';
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -26,18 +29,18 @@ const ProjectDetails = () => {
     return <div>Carregando...</div>;
   }
 
+  const media = projeto.galeria.map(item => {
+    return { url: item, type: 'image' }; // ou 'video' dependendo do tipo de mídia
+  });
+
+  
+
   return (
-    <div className="project-details">
-      <h2>{projeto.nome}</h2>
-
-      <div className="gallery-item">
-              <img src={projeto.featuredImage} alt={projeto.nome} />
-              
-            </div>
-
-      <p>{projeto.featuredImage}</p>
-      {/* Adicione mais detalhes do projeto conforme necessário */}
-    </div>
+    <>
+    <Navbar />
+    <DetailGallery media={media} youtubeLinks={projeto.youtubeLinks} />
+    <Footer />
+    </>
   );
 };
 

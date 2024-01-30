@@ -1,0 +1,83 @@
+/* BackofficeProjectDetails.css */
+.project-details-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-details-container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .project-details-container label {
+    display: block;
+    margin-top: 1rem;
+  }
+  
+  .project-details-container input[type="text"],
+  .project-details-container input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .project-details-container .featured-image-container {
+    margin-top: 1rem;
+  }
+  
+  .project-details-container .featured-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+  }
+  
+  .project-details-container .youtube-links-editor,
+  .project-details-container .gallery-editor {
+    margin-top: 2rem;
+  }
+  
+  .youtube-link-item,
+  .gallery-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .youtube-link-item input,
+  .gallery-item input {
+    flex-grow: 1;
+  }
+  
+  .project-details-container button {
+    padding: 0.5rem 1rem;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .project-details-container button:hover {
+    background-color: #004494;
+  }
+  
+  @media (min-width: 1400px) {
+    .project-details-container {
+      width: 88%;
+    }
+  }
+  
+  @media (max-width: 690px) {
+    .project-details-container {
+      width: 98%;
+    }
+  }
+  

@@ -22,7 +22,6 @@
 
 .filter-container {
   text-align: center;
-  margin-top: 20px;
 }
 
 .filter-btn {
@@ -44,4 +43,9 @@
   text-decoration: underline;
 }
 
+@media (max-width: 800px) {
+  .filter-container {
+    margin-top: 20px;
 
+  }
+}

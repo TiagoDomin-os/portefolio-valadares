@@ -12,7 +12,6 @@ const Gallery = ({ projetos }) => {
     return <div className="spinner"></div>;
   };
   
-
     const [filtroCategoria, setFiltroCategoria] = useState('todos');
     const [categoriaAtiva, setCategoriaAtiva] = useState('todos');
 
@@ -48,7 +47,7 @@ const Gallery = ({ projetos }) => {
           {filtrarProjetos.map(projeto => (
             <CSSTransition
               key={projeto.id}
-              timeout={500}
+              timeout={600}
               classNames="fade"
             >
               <Link to={`/projetos/${projeto.id}`} className="gallery-item">
