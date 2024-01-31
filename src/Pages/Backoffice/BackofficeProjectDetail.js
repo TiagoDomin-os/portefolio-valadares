@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { projectFirestore, projectStorage } from '../../firebase/config';
-import FileUploader from '../Backoffice/AddProjectPage/fileUploaded'; // Ajuste o caminho conforme necessário
+import FileUploader from '../Backoffice/AddProjectPage/fileUploaded';
 import BackofficeNavbar from '../../Components/BackofficeNavbar';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { ref, deleteObject } from "firebase/storage";
 
 const fileUploader = new FileUploader(projectStorage);
 
@@ -20,6 +19,7 @@ const BackofficeProjectDetails = () => {
   const [galeria, setGaleria] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [existingData, setExistingData] = useState({});
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -29,6 +29,7 @@ const BackofficeProjectDetails = () => {
 
       if (docSnap.exists()) {
         const data = docSnap.data();
+        setExistingData(data);
         setNome(data.nome);
         setAutor(data.autor);
         setCategoria(data.categoria);
@@ -43,96 +44,51 @@ const BackofficeProjectDetails = () => {
     fetchProject();
   }, [projectId, navigate]);
 
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
- const handleUpdateProject = async () => {
+  const handleUpdateProject = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
 
-    const updateImageUrl = async () => {
-        return new Promise((resolve, reject) => {
-            if (newFeaturedImage) {
-                fileUploader.uploadFile(
-                    newFeaturedImage, 
-                    'featuredImages',
-                    (progress) => setUploadProgress(progress),
-                    (error) => {
-                        console.error("Erro ao fazer upload da imagem em destaque:", error);
-                        reject(error);
-                    },
-                    (downloadURL) => resolve(downloadURL)
-                );
-            } else {
-                resolve(null); // Se não houver uma nova imagem em destaque para upload, resolve a Promise com null
-            }
-        });
-    };
-
     try {
-        const imageUrl = await updateImageUrl();
+      const imageUrl = newFeaturedImage ? await fileUploader.uploadFile(newFeaturedImage, 'featuredImages', setUploadProgress) : existingData.featuredImage;
+      const newGalleryFiles = galeria.filter(item => item instanceof File);
+      const newGalleryUrls = await Promise.all(newGalleryFiles.map(file => fileUploader.uploadFile(file, 'gallery', setUploadProgress)));
+      const allGalleryUrls = existingData.galeria ? [...existingData.galeria, ...newGalleryUrls] : [...newGalleryUrls];
 
-        let galleryUrls = [];
-        // A lógica para upload das imagens da galeria seria similar à da imagem em destaque
+      const updatedProject = {
+        nome,
+        autor,
+        categoria,
+        featuredImage: imageUrl,
+        youtubeLinks,
+        galeria: allGalleryUrls.length > 0 ? allGalleryUrls : [], // Usa array vazio como fallback
+      };
 
-        const updatedProject = {
-            nome,
-            autor,
-            categoria,
-            featuredImage: imageUrl, // Use a nova URL da imagem em destaque, se houver
-            // Inclua outras propriedades necessárias, como youtubeLinks e galeria
-        };
-
-        await updateDoc(doc(projectFirestore, 'projetos', projectId), updatedProject);
-
-        alert('Projeto atualizado com sucesso!');
-        navigate('/backoffice');
+      await updateDoc(doc(projectFirestore, 'projetos', projectId), updatedProject);
+      alert('Projeto atualizado com sucesso!');
+      setGaleria(allGalleryUrls); // Atualiza o estado com a nova lista de URLs
+      setNewFeaturedImage(null);
+      setIsSubmitting(false);
     } catch (error) {
-        console.error("Erro ao atualizar projeto: ", error);
-    } finally {
-        setIsSubmitting(false);
-        setUploadProgress(0); // Reset do progresso após o término do upload
+      alert(`Erro ao atualizar projeto: ${error.message}`);
+      console.error("Erro ao atualizar projeto: ", error);
+      setIsSubmitting(false);
     }
-};
+  };
 
-
-
-
-
-const handleImageChange = (e) => {
-  if (e.target.files[0]) {
-    setNewFeaturedImage(e.target.files[0]); // Corrigido para usar setNewFeaturedImage
-  }
-};
-
-
-
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setNewFeaturedImage(e.target.files[0]);
+    }
+  };
 
   const handleGalleryChange = (e) => {
-    const files = e.target.files;
-    if (files) {
-      setGaleria([...galeria, ...files]);
-    }
+    const newFiles = Array.from(e.target.files);
+    setGaleria([...galeria, ...newFiles]);
   };
 
-  const addYoutubeLinkInput = () => {
-    setYoutubeLinks([...youtubeLinks, '']);
-  };
+
+
+  const addYoutubeLinkInput = () => {    setYoutubeLinks([...youtubeLinks, '']);  };
 
   const handleYoutubeLinkChange = (index, value) => {
     const updatedLinks = [...youtubeLinks];
@@ -145,12 +101,33 @@ const handleImageChange = (e) => {
     setYoutubeLinks(updatedLinks);
   };
 
-  const removeGalleryImage = (index) => {
-    const updatedGallery = galeria.filter((_, idx) => idx !== index);
-    setGaleria(updatedGallery);
+  
+
+  const removeGalleryItem = async (index) => {
+    const itemToRemove = galeria[index];
+  
+    // Verifica se o item é um arquivo (não enviado ainda) ou um URL (já enviado)
+    if (typeof itemToRemove === "string") {
+      // Construa a referência ao arquivo no Firebase Storage
+      const fileRef = ref(projectStorage, itemToRemove);
+  
+      try {
+        // Tenta deletar o arquivo do Storage
+        await deleteObject(fileRef);
+        console.log("Arquivo removido do Storage:", itemToRemove);
+  
+        // Remove o item do array no Firestore também
+        const updatedGaleria = existingData.galeria.filter((_, idx) => idx !== index);
+        await updateDoc(doc(projectFirestore, 'projetos', projectId), { galeria: updatedGaleria });
+      } catch (error) {
+        console.error("Erro ao remover arquivo do Storage:", error);
+      }
+    } else {
+      // É um arquivo local, apenas remove do estado local
+      const updatedGaleria = galeria.filter((_, idx) => idx !== index);
+      setGaleria(updatedGaleria);
+    }
   };
-
-
 
 
 
@@ -219,25 +196,33 @@ const handleImageChange = (e) => {
               <label htmlFor="galeria" className="form-label">Galeria de Imagens</label>
               <input type="file" className="form-control" id="galeria" multiple onChange={handleGalleryChange} />
               {galeria.map((image, index) => (
-  <div key={index} className="d-flex align-items-center mb-2">
-    {image instanceof File ? (
-      <img src={URL.createObjectURL(image)} alt={`Galeria ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }}
-           onLoad={() => URL.revokeObjectURL(image)} />
-    ) : (
-      <img src={image} alt={`Galeria ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-    )}
-    <button type="button" className="btn btn-danger ml-2" onClick={() => removeGalleryImage(index)}>
-      Remover
-    </button>
-  </div>
+ 
+ 
+ <div key={index} className="d-flex align-items-center mb-2">
+ {image instanceof File ? (
+   <img src={URL.createObjectURL(image)} alt={`Galeria ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }}
+        onLoad={() => URL.revokeObjectURL(image)} />
+ ) : (
+   <img src={image} alt={`Galeria ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
+ )}
+ <button type="button" className="btn btn-danger ml-2" onClick={() => removeGalleryItem(index)}>
+   Remover
+ </button>
+</div>
 ))}
             </div>
   
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
               Salvar Alterações
             </button>
-            {isSubmitting && <div>Carregando: {uploadProgress.toFixed(0)}%</div>}
-
+            {isSubmitting && (
+  <div>
+    <p>Carregando: {uploadProgress.toFixed(0)}%</p>
+    <div style={{ width: '100%', backgroundColor: '#e0e0e0' }}>
+      <div style={{ height: '24px', width: `${uploadProgress}%`, backgroundColor: '#4caf50' }}></div>
+    </div>
+  </div>
+)}
           </form>
         )}
       </div>
