@@ -7,46 +7,46 @@
 }
 
 .featured-media {
-  position: relative; /* Mantém a proporção */
-  width: 100%; /* Ocupa a largura total do contêiner */
-  padding-top: 56.25%; /* Proporção de 16:9, ajuste conforme necessário para suas imagens */
-  height: 0; /* Isso é necessário para a técnica de proporção de padding */
-  max-height: 88vh; /* Adiciona max-height ao contêiner */
+  max-height: 88vh; /* Altura máxima definida para 88vh */
   overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.featured-media::before {
+  content: '';
+  display: block;
+  padding-top: 56.25%; /* Mantém a proporção de 16:9 */
 }
 
 .featured-media img,
-.featured-media iframe {
+.featured-media iframe,
+.featured-media video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Garante que a imagem preencha o espaço, pode ser ajustado para 'contain' se não quiser cortar a imagem */
+  object-fit: cover;
 }
-
-
-
-
-
 
 .thumbnail-container {
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap; /* Permite múltiplas linhas */
+  justify-content: flex-start; /* Alinha as miniaturas ao início */
   margin-top: 10px;
+  gap: 10px; /* Espaçamento uniforme entre miniaturas */
 }
 
 .thumbnail {
-  margin-right: 10px;
-  cursor: pointer;
-  flex: 0 0 auto;
-  width: calc(25% - 10px); /* 4 itens por linha, ajuste a margem conforme necessário */
+  flex: 1 0 calc(20% - 10px); /* Ajuste para 5 itens por linha com espaçamento */
+  max-width: calc(20% - 10px); /* Limita o máximo de largura para manter a consistência */
 }
 
 .thumbnail-media {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* Mantém a proporção de 16:9 (100 / 16 * 9) */
+  padding-top: 56.25%; /* Mantém a proporção de 16:9 */
   height: 0;
   background-size: cover;
   background-position: center;
@@ -62,32 +62,10 @@
   object-fit: cover;
 }
 
-
-
-
-
-@media (min-width: 801px) {
-  .thumbnail {
-    width: calc(20% - 10px); /* 4 itens por linha */
-  }
-}
-
+/* Ajustes para tamanhos de tela menores */
 @media (max-width: 800px) {
   .thumbnail {
-    width: calc(50% - 10px); /* 2 itens por linha */
-  }
-}
-
-@media (min-width: 1400px) {
-  .detail-gallery {
-    
-    /*Alterar para 78% para o video acabar no bottom*/
-    width: 88%;
-  }
-}
-
-@media (max-width: 690px) {
-  .detail-gallery {
-    width: 98%;
+    flex: 1 0 calc(50% - 10px); /* Ajuste para 2 itens por linha */
+    max-width: calc(50% - 10px); /* Mantém a consistência na largura */
   }
 }

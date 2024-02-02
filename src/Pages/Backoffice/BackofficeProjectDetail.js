@@ -50,9 +50,11 @@ const BackofficeProjectDetails = () => {
 
     try {
       const imageUrl = newFeaturedImage ? await fileUploader.uploadFile(newFeaturedImage, 'featuredImages', setUploadProgress) : existingData.featuredImage;
-      const newGalleryFiles = galeria.filter(item => item instanceof File);
-      const newGalleryUrls = await Promise.all(newGalleryFiles.map(file => fileUploader.uploadFile(file, 'gallery', setUploadProgress)));
-      const allGalleryUrls = existingData.galeria ? [...existingData.galeria, ...newGalleryUrls] : [...newGalleryUrls];
+     
+      const newGalleryUrls = await Promise.all(galeria.map(file => 
+        file instanceof File ? fileUploader.uploadFile(file, 'gallery', setUploadProgress) : Promise.resolve(file)
+      ));
+
 
       const updatedProject = {
         nome,
@@ -60,12 +62,12 @@ const BackofficeProjectDetails = () => {
         categoria,
         featuredImage: imageUrl,
         youtubeLinks,
-        galeria: allGalleryUrls.length > 0 ? allGalleryUrls : [], // Usa array vazio como fallback
+      galeria: [...(existingData.galeria || []), ...newGalleryUrls] // Combina a galeria existente com os novos uploads
       };
 
       await updateDoc(doc(projectFirestore, 'projetos', projectId), updatedProject);
       alert('Projeto atualizado com sucesso!');
-      setGaleria(allGalleryUrls); // Atualiza o estado com a nova lista de URLs
+      setGaleria([]); // Atualiza o estado com a nova lista de URLs
       setNewFeaturedImage(null);
       setIsSubmitting(false);
     } catch (error) {
