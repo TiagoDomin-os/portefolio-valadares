@@ -6,7 +6,6 @@ import ProjectDetails from './Pages/HomePage/ProjectDetails'; // Componente que 
 import BackOfficeProjectDetail from './Pages/Backoffice/BackofficeProjectDetail';
 import BackofficeProjectListPage from './Pages/Backoffice/BackofficeProjectListPage';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {

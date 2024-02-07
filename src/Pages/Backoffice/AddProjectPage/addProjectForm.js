@@ -150,6 +150,8 @@ const AddProjectForm = () => {
             <option value="Corporate">Corporate</option>
             <option value="After Movie">After Movie</option>
             <option value="Commercial">Commercial</option>
+            
+
             {/* ... outras opções de categorias ... */}
           </select>
         </div>

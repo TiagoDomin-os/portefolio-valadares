@@ -6,7 +6,7 @@
     background-color: #ffffff;
     height: 10vh;
     position: relative;
-    min-height: min-content;
+    min-height: 100px;
 }
 
 .navbar-container {
@@ -67,4 +67,16 @@
 
 .menu .about:hover {
     font-weight: 700; /* Negrito ao passar o mouse */
+}
+
+.backoffice-nav-link{
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+    color: #000;  
+    text-decoration: none; 
+    bottom: 1rem; 
+    right: 2rem; 
+    transition: font-weight 0.1s ease; 
+    padding-left: 1rem;
+
 }

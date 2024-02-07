@@ -12,7 +12,7 @@ const BackofficeProjectDetails = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [nome, setNome] = useState('');
-  const [autor, setAutor] = useState('');
+  const [autores, setAutores] = useState(['']); // autores deve ser um array para suportar múltiplos autores
   const [categoria, setCategoria] = useState('');
   const [newFeaturedImage, setNewFeaturedImage] = useState(null);
   const [youtubeLinks, setYoutubeLinks] = useState([]);
@@ -31,7 +31,7 @@ const BackofficeProjectDetails = () => {
         const data = docSnap.data();
         setExistingData(data);
         setNome(data.nome);
-        setAutor(data.autor);
+        setAutores(data.autores || ['']); // Definindo autores como array
         setCategoria(data.categoria);
         setYoutubeLinks(data.youtubeLinks || []);
         setGaleria(data.galeria || []);
@@ -41,8 +41,26 @@ const BackofficeProjectDetails = () => {
       }
       setIsSubmitting(false);
     };
+
     fetchProject();
   }, [projectId, navigate]);
+
+
+  
+  const handleAutorChange = (index, value) => {
+    const updatedAutores = [...autores];
+    updatedAutores[index] = value;
+    setAutores(updatedAutores);
+  };
+
+  const addAutorInput = () => {
+    setAutores([...autores, '']);
+  };
+
+  const removeAutorInput = (index) => {
+    const filteredAutores = autores.filter((_, i) => i !== index);
+    setAutores(filteredAutores);
+  };
 
   const handleUpdateProject = async (e) => {
     e.preventDefault();
@@ -56,23 +74,24 @@ const BackofficeProjectDetails = () => {
       ));
 
 
+      const autoresList = autores.filter(autor => autor.trim() !== '');
+
       const updatedProject = {
         nome,
-        autor,
+        autores: autoresList, // Atualizar para usar a lista de autores
         categoria,
         featuredImage: imageUrl,
         youtubeLinks,
-      galeria: [...(existingData.galeria || []), ...newGalleryUrls] // Combina a galeria existente com os novos uploads
+        galeria: newGalleryUrls
       };
 
       await updateDoc(doc(projectFirestore, 'projetos', projectId), updatedProject);
       alert('Projeto atualizado com sucesso!');
-      setGaleria([]); // Atualiza o estado com a nova lista de URLs
-      setNewFeaturedImage(null);
-      setIsSubmitting(false);
+      navigate('/backoffice');
     } catch (error) {
       alert(`Erro ao atualizar projeto: ${error.message}`);
       console.error("Erro ao atualizar projeto: ", error);
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -136,11 +155,9 @@ const BackofficeProjectDetails = () => {
 
 
 
-
-
-
   return (
     <>
+    
       <BackofficeNavbar />
       <div className="container mt-5">
         <h2>Editar Projeto</h2>
@@ -148,16 +165,32 @@ const BackofficeProjectDetails = () => {
           <p>Atualizando projeto...</p>
         ) : (
           <form onSubmit={handleUpdateProject} className="mb-3">
+            {/* Nome do Projeto */}
             <div className="mb-3">
               <label htmlFor="nome" className="form-label">Nome do Projeto</label>
               <input type="text" className="form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
             </div>
-  
-            <div className="mb-3">
-              <label htmlFor="autor" className="form-label">Autor</label>
-              <input type="text" className="form-control" id="autor" value={autor} onChange={(e) => setAutor(e.target.value)} />
-            </div>
-  
+
+            {/* Autores */}
+            {autores.map((autor, index) => (
+              <div key={index} className="mb-3 d-flex">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={autor}
+                  onChange={(e) => handleAutorChange(e, index)}
+                  placeholder="Nome do Autor"
+                />
+                <button type="button" className="btn btn-danger ml-2" onClick={() => removeAutorInput(index)}>
+                  Remover
+                </button>
+              </div>
+            ))}
+            <button type="button" className="btn btn-secondary mb-3" onClick={addAutorInput}>
+              Adicionar Autor
+            </button>
+
+            {/* Categoria */}
             <div className="mb-3">
               <label htmlFor="categoria" className="form-label">Categoria</label>
               <select className="form-control" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
@@ -165,14 +198,22 @@ const BackofficeProjectDetails = () => {
                 <option value="Corporate">Corporate</option>
                 <option value="After Movie">After Movie</option>
                 <option value="Commercial">Commercial</option>
+                {/* Adicione mais opções de categoria conforme necessário */}
               </select>
             </div>
-  
+
+            {/* Imagem em Destaque */}
             <div className="mb-3">
               <label htmlFor="featuredImage" className="form-label">Imagem em Destaque</label>
               <input type="file" className="form-control" id="featuredImage" onChange={handleImageChange} />
+              {existingData.featuredImage && (
+                <div className="mt-2">
+                  <img src={existingData.featuredImage} alt="Imagem em destaque atual" style={{ maxWidth: '200px' }} />
+                </div>
+              )}
             </div>
-  
+
+            {/* Links do YouTube */}
             <div className="mb-3">
               <label htmlFor="youtubeLinks" className="form-label">Links do YouTube</label>
               {youtubeLinks.map((link, index) => (
@@ -193,46 +234,41 @@ const BackofficeProjectDetails = () => {
                 Adicionar Link do YouTube
               </button>
             </div>
-  
-            <div className="mb-3">
-              <label htmlFor="galeria" className="form-label">Galeria de Imagens</label>
-              <input type="file" className="form-control" id="galeria" multiple onChange={handleGalleryChange} />
-              {galeria.map((image, index) => (
- 
- 
- <div key={index} className="d-flex align-items-center mb-2">
- {image instanceof File ? (
-   <img src={URL.createObjectURL(image)} alt={`Galeria ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }}
-        onLoad={() => URL.revokeObjectURL(image)} />
- ) : (
-   <img src={image} alt={`Galeria ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
- )}
- <button type="button" className="btn btn-danger ml-2" onClick={() => removeGalleryItem(index)}>
-   Remover
- </button>
-</div>
-))}
-            </div>
-  
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-              Salvar Alterações
-            </button>
-            {isSubmitting && (
-  <div>
-    <p>Carregando: {uploadProgress.toFixed(0)}%</p>
-    <div style={{ width: '100%', backgroundColor: '#e0e0e0' }}>
-      <div style={{ height: '24px', width: `${uploadProgress}%`, backgroundColor: '#4caf50' }}></div>
-    </div>
-  </div>
-)}
-          </form>
-        )}
-      </div>
-    </>
-  );
-  
 
-};
+            <div className="mb-3">
+            <label htmlFor="galeria" className="form-label">Galeria de Imagens</label>
+            <input type="file" className="form-control" id="galeria" multiple onChange={handleGalleryChange} />
+            <div className="mt-2">
+              {galeria.map((image, index) => (
+                <div key={index} className="d-flex align-items-center mb-2">
+                  {/* Exibição das imagens */}
+                  {/* ... */}
+                  <button type="button" className="btn btn-danger ml-2" onClick={() => removeGalleryItem(index)}>
+                    Remover
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Indicador de Progresso de Upload, colocado fora do loop da galeria */}
+          {isSubmitting && (
+            <div className="progress mt-3">
+              <div className="progress-bar" role="progressbar" style={{ width: `${uploadProgress}%` }} aria-valuenow={uploadProgress} aria-valuemin="0" aria-valuemax="100">
+                {uploadProgress.toFixed(0)}%
+              </div>
+            </div>
+          )}
+
+          {/* Botão para salvar as alterações */}
+          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+            Salvar Alterações
+          </button>
+        </form>
+      )}
+    </div>
+  </>
+);
+          }
 
 export default BackofficeProjectDetails;
-
