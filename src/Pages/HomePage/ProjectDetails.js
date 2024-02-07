@@ -7,10 +7,9 @@ import CreditSection from '../../Components/CreditSection';
 import DetailGallery from '../../Components/DetailGalery';
 import Footer from '../../Components/Footer';
 
-const ProjectDetails = () => {
+  const ProjectDetails = () => {
   const { id } = useParams();
   const [projeto, setProjeto] = useState(null);
-  const autoresStr = projeto.autores.join(', ');
 
 
   const shuffleArray = (array) => {
@@ -21,7 +20,6 @@ const ProjectDetails = () => {
     return array;
   }
   
-
 
   useEffect(() => {
     const fetchProjeto = async () => {
@@ -59,6 +57,7 @@ if (firstYoutubeVideo) {
   shuffledMedia.unshift(firstYoutubeVideo);
 }
 
+const autoresStr = projeto.autores?.join(', ') ?? ''; // Usando o operador opcional de encadeamento e coalescência nula
 
 
 
@@ -66,7 +65,7 @@ if (firstYoutubeVideo) {
     <>
     <Navbar />
     <DetailGallery media={shuffledMedia} />
-    <CreditSection nomeProjeto={projeto.nome}  autor={projeto.autoresStr} categoria={projeto.categoria} />
+    <CreditSection nomeProjeto={projeto.nome} autores={projeto.autores} categoria={projeto.categoria} />
 
     <Footer />
     </>

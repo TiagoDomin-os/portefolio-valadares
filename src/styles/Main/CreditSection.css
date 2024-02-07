@@ -21,7 +21,7 @@
 .credit-category {
   font-size: 0.75em; /* Tamanho da fonte para categoria menor */
   font-weight: normal; /* Peso da fonte normal para categoria */
-  margin-bottom: 0px; /* Espaçamento antes do autor */
+  margin-bottom: 30px; /* Espaçamento antes do autor */
 }
 
 .credit-label {
@@ -29,8 +29,10 @@
 }
 .credit-author {
   font-size: 1em; /* Tamanho da fonte padrão para o autor */
-  margin-top: 30px; /* Espaçamento acima do autor */
+  margin-bottom: .45rem; /* Espaçamento acima do autor */
 }
+
+
 
 /* Pode-se reutilizar as mesmas regras de mídia que .detail-gallery para consistência */
 @media (max-width: 800px) {
