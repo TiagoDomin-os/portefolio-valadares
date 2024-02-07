@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { projectFirestore } from '../../firebase/config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore'; // Combine as importações aqui
 import { Link } from 'react-router-dom';
-
+import { projectFirestore, projectStorage } from '../../firebase/config';
+import { ref, deleteObject } from "firebase/storage";
 import BackofficeNavbar from '../../Components/BackofficeNavbar';
 import '../../styles/BackOffice/ProjectList.css'; // Caminho do arquivo CSS
 
+
 const BackofficeProjectListPage = () => {
   const [projetos, setProjetos] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0); // Estado para forçar recarregamento
+
 
   useEffect(() => {
     const fetchProjetos = async () => {
@@ -22,6 +25,63 @@ const BackofficeProjectListPage = () => {
     fetchProjetos();
   }, []);
 
+  const fetchProjetos = async () => {
+    const querySnapshot = await getDocs(collection(projectFirestore, 'projetos'));
+    const projetosData = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setProjetos(projetosData);
+  };
+
+ const deleteProject = async (projectId) => {
+  // Referência ao documento do projeto que será excluído
+  const projectRef = doc(projectFirestore, 'projetos', projectId);
+
+  // Obter o documento para acessar as URLs dos arquivos
+  const projectDoc = await getDoc(projectRef);
+  if (!projectDoc.exists()) {
+    console.error('Projeto não encontrado!');
+    return;
+  }
+  const projectData = projectDoc.data();
+
+  // Array para armazenar promessas de exclusão de arquivos do Storage
+  const fileDeletionPromises = [];
+
+  // Adicionar promessa de exclusão da imagem destacada, se houver
+  if (projectData.featuredImage) {
+    const featuredImageRef = ref(projectStorage, projectData.featuredImage);
+    fileDeletionPromises.push(deleteObject(featuredImageRef));
+  }
+
+  // Adicionar promessas de exclusão para cada arquivo na galeria
+  projectData.galeria.forEach((fileUrl) => {
+    const fileRef = ref(projectStorage, fileUrl);
+    fileDeletionPromises.push(deleteObject(fileRef));
+  });
+
+  // Aguardar a exclusão de todos os arquivos
+  try {
+    await Promise.all(fileDeletionPromises);
+    console.log('Todos os arquivos foram excluídos com sucesso.');
+  } catch (error) {
+    console.error('Erro ao excluir arquivos:', error);
+    // Decida se quer continuar a excluir o documento Firestore mesmo se a exclusão do arquivo falhar
+  }
+
+  // Excluir o documento do Firestore após a exclusão bem-sucedida dos arquivos
+  try {
+    await deleteDoc(projectRef);
+    console.log('Projeto excluído com sucesso do Firestore.');
+  } catch (error) {
+    console.error('Erro ao excluir projeto do Firestore:', error);
+  }
+  setRefreshKey(oldKey => oldKey + 1);
+  await fetchProjetos();
+
+};
+
   return (
     <>
       <BackofficeNavbar />
@@ -31,14 +91,22 @@ const BackofficeProjectListPage = () => {
           <div className="project-card" key={projeto.id}>
             <div className="project-image">
               {/* Adicione a imagem destacada aqui se disponível */}
+              {projeto.featuredImage && (
+                <img src={projeto.featuredImage} alt="Imagem Destacada" style={{ width: '100%' }} />
+              )}
             </div>
             <div className="project-details">
               <div className="project-title">{projeto.nome}</div>
               <div className="project-category">{projeto.categoria}</div>
             </div>
-            <Link to={`/backoffice/projetos/${projeto.id}`} className="edit-button">
-              Editar
-            </Link>
+            <div className="project-actions">
+              <Link to={`/backoffice/projetos/${projeto.id}`} className="edit-button">
+                Editar
+              </Link>
+              <button onClick={() => deleteProject(projeto.id)} className="edit-button">
+                 Excluir
+              </button>                
+            </div>
           </div>
         ))}
       </div>

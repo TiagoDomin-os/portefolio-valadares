@@ -34,7 +34,7 @@
 .thumbnail-container {
   display: flex;
   flex-wrap: wrap; /* Permite múltiplas linhas */
-  justify-content: center; /* Alinha as miniaturas ao início */
+  justify-content: flex-start; /* Alinha as miniaturas ao início */
   margin-top: 10px;
   gap: 10px; /* Espaçamento uniforme entre miniaturas */
 }

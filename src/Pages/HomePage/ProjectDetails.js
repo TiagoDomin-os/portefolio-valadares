@@ -6,11 +6,15 @@ import Navbar from '../../Components/Navbar';
 import CreditSection from '../../Components/CreditSection';
 import DetailGallery from '../../Components/DetailGalery';
 import Footer from '../../Components/Footer';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+
 
   const ProjectDetails = () => {
   const { id } = useParams();
   const [projeto, setProjeto] = useState(null);
 
+  const { slug } = useParams();
+  const projectSlug = slug.toLowerCase();
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -22,20 +26,23 @@ import Footer from '../../Components/Footer';
   
 
   useEffect(() => {
-    const fetchProjeto = async () => {
-      const docRef = doc(projectFirestore, 'projetos', id);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
+    const fetchProjetoPorNome = async () => {
+      // Supõe que 'nome' é passado como 'slug' na URL
+      const nomeProjeto = slug.replace(/-/g, ' '); // Converte o slug de volta para o nome
+  
+      const q = query(collection(projectFirestore, 'projetos'), where('slug', '==', projectSlug));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        const docSnap = querySnapshot.docs[0]; // Pega o primeiro documento encontrado
         setProjeto({ id: docSnap.id, ...docSnap.data() });
       } else {
-        console.log("Nenhum projeto encontrado!");
+        console.log("Nenhum projeto encontrado com o nome fornecido!");
       }
     };
-
-    fetchProjeto();
-  }, [id]);
-
+  
+    fetchProjetoPorNome();
+  }, [projectSlug]); 
   if (!projeto) {
     return <div>Carregando...</div>;
   }

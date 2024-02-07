@@ -39,6 +39,7 @@
   
   .edit-button {
     padding: 10px 20px; /* Padding interno para o botão */
+    margin-inline-start: 20 ;
     background: #007bff; /* Cor de fundo para o botão */
     color: white; /* Cor da fonte para o botão */
     text-decoration: none; /* Remove sublinhado do link */

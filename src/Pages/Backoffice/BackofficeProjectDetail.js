@@ -194,7 +194,7 @@ const BackofficeProjectDetails = () => {
               </select>
             </div>
 
-            {/* Imagem em Destaque */}
+           {/* {/* Imagem em Destaque }
             <div className="mb-3">
               <label htmlFor="featuredImage" className="form-label">Imagem em Destaque</label>
               <input type="file" className="form-control" id="featuredImage" onChange={handleImageChange} />
@@ -203,7 +203,7 @@ const BackofficeProjectDetails = () => {
                   <img src={existingData.featuredImage} alt="Imagem em destaque atual" style={{ maxWidth: '200px' }} />
                 </div>
               )}
-            </div>
+            </div>*/}
 
             {/* Links do YouTube */}
             <div className="mb-3">
@@ -227,7 +227,7 @@ const BackofficeProjectDetails = () => {
               </button>
             </div>
 
-            <div className="mb-3">
+         {/*   <div className="mb-3">
   <label htmlFor="galeria" className="form-label">Galeria de Imagens</label>
   <input type="file" className="form-control" id="galeria" multiple onChange={handleGalleryChange} />
   <div className="mt-2">
@@ -248,7 +248,7 @@ const BackofficeProjectDetails = () => {
       </div>
     ))}
   </div>
-  </div>
+  </div> */}
 
           {/* Indicador de Progresso de Upload, colocado fora do loop da galeria */}
           {isSubmitting && (

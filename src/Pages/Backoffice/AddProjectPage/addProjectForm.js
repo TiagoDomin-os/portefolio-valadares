@@ -20,7 +20,7 @@ const AddProjectForm = () => {
   const [galeria, setGaleria] = useState([]);
 
   const [youtubeLinks, setYoutubeLinks] = useState([]); // Estado para gerenciar os links do YouTube
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const handleAutorChange = (e, index) => {
     const newAutores = [...autores];
@@ -84,36 +84,33 @@ const AddProjectForm = () => {
     });
   };
 
+  const createSlug = (name) => {
+    return name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     try {
       const imageUrl = featuredImage ? await handleUpload(featuredImage, 'featuredImages') : null;
       const galleryUrls = await Promise.all(galeria.map(file => handleUpload(file, 'gallery')));
-
+  
       await addDoc(collection(projectFirestore, 'projetos'), {
         nome,
         autores,
-        categoria, // Adiciona a categoria ao documento
+        categoria,
         featuredImage: imageUrl,
         youtubeLinks,
-        galeria: galleryUrls.filter(url => url !== null)
+        galeria: galleryUrls.filter(url => url !== null),
+        slug: createSlug(nome), // Adiciona o slug aqui
       });
-
+  
       console.log("Projeto adicionado com sucesso.");
       alert('Projeto adicionado com sucesso!');
-      navigation.push('/backoffice');      // Reset dos campos
-      setNome('');
-      setAutores([]);
-      setCategoria('');
-      setFeaturedImage(null);
-      setGaleria([]);
-      document.getElementById('featuredImage').value = ''; // Reset do campo de imagem destacada
-      document.getElementById('featuredVideo').value = ''; // Reset do campo de vídeo destacado
-      document.getElementById('galeria').value = ''; // Reset do campo de galeria
-
-
+      navigate('/backoffice');
+      // Reset dos campos aqui...
     } catch (error) {
       console.error("Erro ao adicionar projeto: ", error);
     } finally {

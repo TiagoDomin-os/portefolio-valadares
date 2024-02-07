@@ -6,9 +6,10 @@ import '../../styles/Main/HomePage.css';
 import Gallery from '../../Components/HomeGalery';
 import Navbar from '../../Components/Navbar';
 import Footer from '../../Components/Footer';
+import BackofficeNavbar from '../../Components/BackofficeNavbar';
 
 
-const HomePage = () => {
+const BackofficeHomePage = () => {
   const [projetos, setProjetos] = useState([]);
 
   useEffect(() => {
@@ -20,17 +21,17 @@ const HomePage = () => {
       }));
       setProjetos(projetosData);
     };
-  
+
     fetchProjetos();
   }, []);
 
   return (
     <>
-      <Navbar />
+      <BackofficeNavbar />
       <Gallery projetos={projetos} />
       <Footer />
     </>
   );
 };
 
-export default HomePage;
+export default BackofficeHomePage;
