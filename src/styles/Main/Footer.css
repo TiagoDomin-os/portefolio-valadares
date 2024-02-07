@@ -20,7 +20,7 @@
   
   .footer-links a {
     color: black !important; /* Usar apenas se necessário e não houver outra opção */
-    
+
 }
   
   .footer-text {
@@ -28,6 +28,14 @@
     margin-top: 10px;
   }
   
+
+  .footer-link {
+    text-decoration: none; /* Remover sublinhado de links */
+    outline: none; /* Remover a borda de foco */
+    border: none; /* Remover borda de botão */
+    background-color: transparent;
+  }
+
   /* Estilo responsivo para larguras de tela maiores */
   @media (min-width: 1400px) {
     .footer {

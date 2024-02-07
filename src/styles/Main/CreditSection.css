@@ -1,0 +1,40 @@
+/* CreditSection.css */
+
+.credit-section {
+  font-family: 'Arial', sans-serif; /* Ou a fonte que parece ser usada */
+  color: #000; /* Cor do texto preto */
+  background-color: #fff; /* Fundo branco */
+  padding: 10vh 0; /* Padding vertical de 1vh */
+  line-height: 1.6; /* Espaçamento entre linhas */
+  display: flex; /* Usa flexbox para alinhamento */
+  flex-direction: column; /* Elementos empilhados verticalmente */
+  width: 70%; /* Largura consistente com .detail-gallery */
+  margin: auto; /* Centraliza na página */
+}
+
+.credit-title {
+  font-size: 30px; /* Tamanho da fonte para o título */
+  font-weight: bold; /* Título em negrito */
+  margin-bottom: 0px; /* Espaço abaixo do título */
+}
+
+.credit-category {
+  font-size: 0.75em; /* Tamanho da fonte para categoria menor */
+  font-weight: normal; /* Peso da fonte normal para categoria */
+  margin-bottom: 0px; /* Espaçamento antes do autor */
+}
+
+.credit-label {
+  font-weight: bold; /* Labels em negrito */
+}
+.credit-author {
+  font-size: 1em; /* Tamanho da fonte padrão para o autor */
+  margin-top: 30px; /* Espaçamento acima do autor */
+}
+
+/* Pode-se reutilizar as mesmas regras de mídia que .detail-gallery para consistência */
+@media (max-width: 800px) {
+  .credit-section {
+    /* Ajustes específicos para .credit-section em tamanhos de tela menores podem ser adicionados aqui */
+  }
+}

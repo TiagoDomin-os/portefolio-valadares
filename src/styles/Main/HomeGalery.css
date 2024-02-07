@@ -32,8 +32,8 @@
   
   /*Estilo hover*/
   .gallery-item:hover .gallery-item-img {
-    opacity: 0.1; /* Diminui a opacidade da imagem no hover */
-    transition: opacity 0.5s ease; /* Suaviza a transição de opacidade */
+    filter: brightness(30%); /* Escurece a imagem ao passar o mouse */
+
     
   }
   
@@ -50,7 +50,7 @@
   .gallery-item-title {
     top: 40%; /* Ajuste conforme necessário para posicionar verticalmente */
     color: #ffffff; /* Cor do texto */
-    font-size: 1.5rem; /* Tamanho do texto */
+    font-size: 1.2rem; /* Tamanho do texto */
   }
   
   .gallery-item-category {
@@ -93,7 +93,7 @@
 
   @media (max-width: 690px) {
     .gallery-container {
-      width: 98%; /* Largura da galeria para telas pequenas */
+      width: 85%; /* Largura da galeria para telas pequenas */
       margin: auto;
     }
   

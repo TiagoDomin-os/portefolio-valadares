@@ -12,8 +12,8 @@ const Gallery = ({ projetos }) => {
     return <div className="spinner"></div>;
   };
   
-    const [filtroCategoria, setFiltroCategoria] = useState('todos');
-    const [categoriaAtiva, setCategoriaAtiva] = useState('todos');
+    const [filtroCategoria, setFiltroCategoria] = useState('Todos');
+    const [categoriaAtiva, setCategoriaAtiva] = useState('Todos');
 
     const handleFilterClick = categoria => {
         setFiltroCategoria(categoria);
@@ -22,9 +22,9 @@ const Gallery = ({ projetos }) => {
 
 
 
-  const categorias = ['todos', ...new Set(projetos.map(projeto => projeto.categoria))];
+  const categorias = ['Todos', ...new Set(projetos.map(projeto => projeto.categoria))];
 
-  const filtrarProjetos = filtroCategoria === 'todos' ? projetos : projetos.filter(projeto => projeto.categoria === filtroCategoria);
+  const filtrarProjetos = filtroCategoria === 'Todos' ? projetos : projetos.filter(projeto => projeto.categoria === filtroCategoria);
 
   return (
     <>
