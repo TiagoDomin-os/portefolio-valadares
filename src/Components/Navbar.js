@@ -28,8 +28,11 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
               </button>
             ))}
             </div>
-            
-            <Link to="/about" className="nav-link ">About</Link>
+            <div className="about-link">  
+            <Link to="/team" >Team   </Link>
+            <Link to="/about"> About</Link>
+            </div>
+          
           </div>
           <div className="menu-icon" onClick={toggleMenu} >
             <img src={isMenuOpen ? '/NavbarMenuTop.png' : '/NavbarMenuDown.png'} alt='Menu' width={35}/>
