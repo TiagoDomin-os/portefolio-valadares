@@ -1,0 +1,27 @@
+.about-us-container {
+    padding-top: 3rem;
+    margin: auto;
+    max-width: 1200px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .logo-container {
+    /* Supondo que .logo-container ocupará toda a largura disponível da .about-us-container */
+    width: 100%;
+    display: block; /* Isso é necessário se .logo-container não for um elemento de bloco por padrão */
+  }
+  
+  .client-logo {
+    width: 100%;
+    display: block; /* Isso garante que a imagem não tenha espaço extra embaixo */
+  }
+  
+  /* Estilo para telas com largura até 825 pixels */
+  @media (max-width: 825px) {
+    .client-logo {
+      content: url('../../public/team/team_vertical.png'); /* Muda para uma imagem vertical */
+      /* A propriedade 'content' com a função 'url()' substituirá o 'src' da tag <img> */
+    }
+  }
+  

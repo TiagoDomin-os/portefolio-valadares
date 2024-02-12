@@ -6,6 +6,7 @@
     width: 95%;
     margin: auto;
     min-height: 80vh;
+    max-width: 1300px;
   }
   
   .gallery {
@@ -39,37 +40,45 @@
   
   .gallery-item-title, .gallery-item-category {
     position: absolute;
-    width: 100%; /* Faz com que o título e categoria ocupem todo o espaço horizontal */
+    width: 100%; /* Isso permite que o título ocupe toda a largura e quebre a linha conforme necessário */
     text-align: center; /* Centraliza o texto horizontalmente */
     left: 0;
-    opacity: 0; /* Inicialmente escondido */
-    transition: opacity 0.8s ease; /* Suaviza a transição de opacidade */
-    pointer-events: none; /* Evita que o texto interfira no evento de hover */
+    white-space: normal; /* Permite que o texto quebre a linha */
+    overflow: hidden; /* Esconde o texto que exceder o espaço disponível */
+    text-overflow: ellipsis; /* Adiciona "..." no final do texto se ele for cortado */
+    opacity: 0;
   }
   
   .gallery-item-title {
     top: 40%; /* Ajuste conforme necessário para posicionar verticalmente */
-    color: #ffffff; /* Cor do texto */
-    font-size: 1.2rem; /* Tamanho do texto */
+    color: #ffffff;
+    font-size: 1vw;
+    font-weight: 700;
+    line-height: 1.2; /* Ajusta o espaçamento entre as linhas do título */
   }
   
   .gallery-item-category {
     top: 50%; /* Ajuste conforme necessário para posicionar verticalmente */
-    color: #fff; /* Cor do texto */
-    font-size: 1rem; /* Tamanho do texto */
+    color: #fff;
+    font-size: 1vw;
+    font-weight: 400;
   }
   
   .gallery-item:hover .gallery-item-title,
   .gallery-item:hover .gallery-item-category {
     opacity: 1; /* Mostra o título e a categoria no hover */
-    transition: 0.8 ease;
-    font-family: 'Arial', sans-serif;
-    font-weight: 400;
+    transition: 200;
     color: #ffffff; 
   }
   
-  
-  
+
+  .gallery-item-title-mobile
+   {
+    display: none; /* Escondido por padrão */
+    text-align: center; /* Centraliza o texto */
+    margin-top: 0.5rem; /* Adiciona uma margem no topo */
+  }
+
   /*Estilismo imagem*/
   .gallery-item img {
     position: absolute;
@@ -83,15 +92,9 @@
   }
   
   
-  /* Estilo para telas com largura superior a 1400px */
-  @media (min-width: 1400px) {
-    .gallery-container {
-      width: 88%;
-          }
-  }
-  
 
-  @media (max-width: 690px) {
+
+  @media (max-width: 825px) {
     .gallery-container {
       width: 85%; /* Largura da galeria para telas pequenas */
       margin: auto;
@@ -106,6 +109,17 @@
       padding-top: 57%; /* Ajuste a proporção caso necessário para manter a consistência */
         
     }
+
+    .gallery-item-title {
+     /* Cor do texto */
+      font-size: 4.5vw; /* Tamanho do texto */
+    }
+    
+    .gallery-item-category {
+     
+      font-size: 2vw; /* Tamanho do texto */
+    }
+    
   }
 
 

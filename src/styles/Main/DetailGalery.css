@@ -34,14 +34,14 @@
 .thumbnail-container {
   display: flex;
   flex-wrap: wrap; /* Permite múltiplas linhas */
-  justify-content: flex-start; /* Alinha as miniaturas ao início */
+  justify-content: start; /* Alinha as miniaturas ao início */
   margin-top: 10px;
   gap: 10px; /* Espaçamento uniforme entre miniaturas */
 }
 
 .thumbnail {
   flex: 1 0 calc(20% - 10px); /* Ajuste para 5 itens por linha com espaçamento */
-  max-width: calc(20% - 10px); /* Limita o máximo de largura para manter a consistência */
+  max-width: calc(20% + 10px); /* Limita o máximo de largura para manter a consistência */
 }
 
 .thumbnail-media {
@@ -67,6 +67,6 @@
 @media (max-width: 800px) {
   .thumbnail {
     flex: 1 0 calc(50% - 10px); /* Ajuste para 2 itens por linha */
-    max-width: calc(50% - 10px); /* Mantém a consistência na largura */
+    max-width: calc(50% + 10px); /* Mantém a consistência na largura */
   }
 }

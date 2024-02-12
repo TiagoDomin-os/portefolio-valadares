@@ -145,7 +145,7 @@ const AddProjectForm = () => {
           <select className="form-control" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
             <option value="">Selecione uma Categoria</option>
             <option value="Corporate">Corporate</option>
-            <option value="After Movie">After Movie</option>
+            <option value="AfterMovie">AfterMovie</option>
             <option value="Commercial">Commercial</option>
             
 

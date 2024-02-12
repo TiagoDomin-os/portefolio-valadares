@@ -1,23 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Navbar.css';
+import '../styles/Main/Navbar/Navbar.css';
 
-const Navbar = () => {
-    return (
+const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    document.body.classList.toggle('menu-active', isMenuOpen);
+  };
+
+  return (
+    <>
       <nav className="navbar">
-        <div className="navbar-container">
-          
-        <a href="/">
-    <img src='/SiteLogo.png' alt='Logo' style={{ maxWidth: '200px', maxHeight: '90px' }} />
-  </a>
-
-          <div className="menu">
-            {/* Se você pretende usar o React Router, você pode querer usar o componente Link aqui */}
-            <Link to="/about" className="nav-link">About</Link>
+          <a href="/" className="logo">
+            <img src='/SiteLogo.png' alt='Logo' />
+          </a>
+          <div className="regular-menu">
+            <div className='filtros'>
+            {categorias.map((categoria, index) => (
+              <button
+                key={index}
+                onClick={() => onFilterClick(categoria)}
+                className={categoriaAtiva === categoria ? 'nav-link active' : 'nav-link'}
+              >
+                {categoria}
+              </button>
+            ))}
+            </div>
+            
+            <Link to="/about" className="nav-link ">About</Link>
           </div>
-        </div>
+          <div className="menu-icon" onClick={toggleMenu} >
+            <img src={isMenuOpen ? '/NavbarMenuTop.png' : '/NavbarMenuDown.png'} alt='Menu' width={35}/>
+          </div>
       </nav>
-    );
+      {isMenuOpen && (
+        <div className="menu-overlay">
+          <div className="menu-content">
+
+          {categorias.map((categoria, index) => (
+              <button
+                key={index}
+                onClick={() => onFilterClick(categoria)}
+                className={categoriaAtiva === categoria ? 'nav-link active' : 'nav-link'}
+              >
+                {categoria}
+              </button>
+            ))}
+
+<Link to="/about" className="nav-link about-link">About</Link>
+
+            </div>
+            
+            {/* <Link to="/about" className="nav-link about-link">About</Link> */}
+
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Navbar;

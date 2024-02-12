@@ -7,6 +7,7 @@ import CreditSection from '../../Components/CreditSection';
 import DetailGallery from '../../Components/DetailGalery';
 import Footer from '../../Components/Footer';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import DetailNavbar from '../../Components/DetailNavbar';
 
 
   const ProjectDetails = () => {
@@ -70,7 +71,7 @@ const autoresStr = projeto.autores?.join(', ') ?? ''; // Usando o operador opcio
 
   return (
     <>
-    <Navbar />
+    <DetailNavbar />
     <DetailGallery media={shuffledMedia} />
     <CreditSection nomeProjeto={projeto.nome} autores={projeto.autores} categoria={projeto.categoria} />
 

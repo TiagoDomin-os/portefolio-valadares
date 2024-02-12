@@ -9,6 +9,9 @@
     width: 95%;
     margin: 0 auto;
     transition: width 0.3s ease;
+    font-family: "Protest Strike", sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
   
   .footer-links {
@@ -16,6 +19,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    size: 0.8vw;
   }
   
   .footer-links a {
@@ -26,6 +30,11 @@
   .footer-text {
     text-align: 'center';
     margin-top: 10px;
+    font-family: "Protest Strike", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 12px;
+  
   }
   
 
