@@ -9,18 +9,16 @@
   overflow: hidden;
 }
 
-/* Estilo do logotipo da Navbar */
-.navbar .logo {
+
+.navbar :nth-child(0){
+  margin-right: auto;
 }
 
-.navbar .logo img {
-  max-width: 180px;
-  width: auto;
 
-}
+
 
 /* Estilo dos filtros e link 'About' */
-.navbar .regular-menu {
+ .regular-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,10 +27,11 @@
 }
 
 /* Div contendo os filtros */
-.navbar .filtros {
-  display: flex;
+#filtros {
+  
   justify-content: center;
   flex-grow: 2; /* Permite que os filtros ocupem mais espaço */
+  padding: 2px;
 }
 
 /* Botões de filtro */
@@ -67,10 +66,7 @@
   background-color: transparent;
   }
 
-  .about-link link{
-    color: black;
-
-  }
+ 
 
 /* Ícone do menu para dispositivos móveis */
 .navbar .menu-icon {
@@ -78,47 +74,46 @@
   cursor: pointer;
 }
 
-/* Overlay do menu quando ativado */
-.menu-overlay {
-  display: none; /* Esconde por padrão */
+
+.togle-menu{
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
+  right: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.26);
+  box-shadow: -10px 0 10px rgba(0, 0,0,0.1);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  backdrop-filter: blur(10px);
+  display: none;
+
 }
 
-/* Conteúdo do menu-overlay */
-.menu-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.togle-menu li{
+  width: 100%;
+}
+.togle-menua{width: 100%;}
+
+.menu-button{
+  display: none;
 }
 
 /* Estilo para dispositivos móveis */
 @media (max-width: 825px) {
-  .navbar .menu-icon {
-    display: block;
-  }
-
-  .navbar .regular-menu {
+  .hideOnMobile{
     display: none;
   }
 
-  .menu-overlay {
-    display: flex; /* Mostra quando o menu estiver ativo */
+  .menu-button{
+    display:block;
   }
+}
 
-  /* Conteúdo do menu quando o menu está ativo */
-  .menu-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+@media(max-width: 400px){
+  .togle-menu{
+    width: 100%;
   }
 }
