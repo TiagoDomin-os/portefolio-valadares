@@ -5,20 +5,23 @@ import '../styles/Main/Navbar/Navbar.css';
 const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    document.body.classList.toggle('menu-active', isMenuOpen);
-  },
+  // const toggleMenu = () => {
+  //   setIsMenuOpen(!isMenuOpen);
+  //   document.body.classList.toggle('menu-active', isMenuOpen);
+  // },
 
-  showSidebar = () => {
-    const sidebar = document.querySelector('.togle-menu')
+  const showSidebar = () => {
+    setIsMenuOpen(true);
+    const sidebar = document.querySelector('.togle-menu');
     sidebar.style.display = 'flex';
-  } , 
+  };
 
-  hideSidebar = () => {
-    const sidebar = document.querySelector('.togle-menu')
+  // Function to hide the sidebar
+  const hideSidebar = () => {
+    setIsMenuOpen(false);
+    const sidebar = document.querySelector('.togle-menu');
     sidebar.style.display = 'none';
-  }  
+  };
 
   return (
     <>
@@ -41,20 +44,26 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
               </button>
             ))}
             </div>
-            
-            <Link to="/team" className='hideOnMobile'>Team   </Link>
+            </div>
+            <div className='links'>
+             <a href='/team' className='hideOnMobile'>Team</a> 
+            <a href='/about' className='hideOnMobile'>About</a> 
+            </div>
 
-            <Link to="/about" className='hideOnMobile'> About</Link>
-
-            <li onClick= {showSidebar} className='menu-button'>          
-                <a href='#'> <img src='/NavbarMenuTop.png' width={30}></img></a>
-          </li>
-           </div>
+            <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
+          {isMenuOpen
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={30} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
+        </li>
 
            <div className="togle-menu">
-           <li onClick= {hideSidebar}>          
-                <a href='#'> <img src='/NavbarMenuDown.png' width={30}></img></a>
-          </li>
+           
+           <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
+          {isMenuOpen
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={30} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
+        </li>
+
 
             <div >
             {categorias.map((categoria, index) => (
@@ -68,9 +77,11 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
             ))}
             </div>
             
-            <Link to="/team" >Team   </Link>
-            <Link to="/about"> About</Link>
             
+            <div>
+            <a href='/team' >Team</a> 
+            <a href='/about' >About</a> 
+            </div>
 
             </div>
          
