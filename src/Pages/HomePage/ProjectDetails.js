@@ -53,12 +53,16 @@ import DetailNavbar from '../../Components/DetailNavbar';
   const youtubeMedia = projeto.youtubeLinks?.length > 0
   ? projeto.youtubeLinks.map(url => ({ url, type: 'video' }))
   : [];
+
 const galeriaMedia = projeto.galeria.map(url => ({ url, type: 'image' }));
 
 const firstYoutubeVideo = youtubeMedia.shift(); // Remove e guarda o primeiro vídeo do YouTube
 
+
+const galeriaMP4 = projeto.mp4Videos.map(url => ({url, type:'mp4'}));
+
 // Combina e embaralha todos os vídeos do YouTube restantes com as imagens da galeria
-const shuffledMedia = shuffleArray([...youtubeMedia, ...galeriaMedia]);
+const shuffledMedia = shuffleArray([...youtubeMedia, ...galeriaMedia, ...galeriaMP4]);
 
 // Se havia um vídeo do YouTube, coloque-o de volta na primeira posição
 if (firstYoutubeVideo) {

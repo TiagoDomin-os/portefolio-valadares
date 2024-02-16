@@ -2,19 +2,35 @@ import React, { useState } from 'react';
 import '../styles/Main/DetailGalery.css'; // Verifique se o caminho do CSS está correto
 
 const DetailGallery = ({ media }) => {
-  // Assume que o primeiro item de 'media' é o item em destaque inicialmente
   const [featured, setFeatured] = useState(media[0]);
 
   const handleClick = (item) => {
-    // Define o item clicado como o item em destaque, sem alterar seu tipo
     setFeatured(item);
+  };
+
+  const renderThumbnailItem = (item, index) => {
+    if (item.type === 'image') {
+      return <img src={item.url} alt={`Thumbnail ${index}`} onClick={() => handleClick(item)} />;
+    } else if (item.type === 'video') {
+      const videoId = new URL(item.url).searchParams.get("v");
+      const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+      return <img src={thumbnailUrl} alt={`YouTube Thumbnail ${index}`} onClick={() => handleClick(item)} />;
+    } else if (item.type === 'mp4') {
+      return (
+        <div className="thumbnail-video" key={index} onClick={() => handleClick(item)}>
+        <video key={index} loop autoPlay muted  style={{ width: '100%', height: 'auto' }} onClick={() => handleClick(item)}>
+          <source src={item.url} type="video/mp4" />
+          Seu navegador não suporta vídeos.
+        </video>
+       </div>
+      );
+    }
   };
 
   const renderMediaItem = (item) => {
     if (item.type === 'image') {
       return <img src={item.url} alt="Gallery" />;
     } else if (item.type === 'video') {
-      // Extrai o ID do vídeo do YouTube a partir do URL e o incorpora no iframe
       const videoId = new URL(item.url).searchParams.get("v");
       return (
         <iframe
@@ -25,17 +41,14 @@ const DetailGallery = ({ media }) => {
           allowFullScreen
         ></iframe>
       );
-    }
-  };
-
-  const renderThumbnailItem = (item, index) => {
-    if (item.type === 'image') {
-      return <img src={item.url} alt={`Thumbnail ${index}`} />;
-    } else if (item.type === 'video') {
-      // Gera a URL da miniatura do vídeo do YouTube
-      const videoId = new URL(item.url).searchParams.get("v");
-      const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-      return <img src={thumbnailUrl} alt={`YouTube Thumbnail ${index}`} />;
+    } else if (item.type === 'mp4') {
+      // Use a chave única para o componente vídeo, como a URL do vídeo
+      return (
+        <video key={item.url} loop autoPlay muted playsInline >
+          <source src={item.url} type="video/mp4" />
+          Seu navegador não suporta vídeos.
+        </video>
+      );
     }
   };
 
@@ -56,5 +69,6 @@ const DetailGallery = ({ media }) => {
     </div>
   );
 };
+
 
 export default DetailGallery;

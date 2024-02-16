@@ -28,23 +28,12 @@ const Gallery = ({ projetos }) => {
 
   return (
     <>
-      {/* Renderizando os botões de filtro */}
-      {/* <div className="filter-container">
-      {categorias.map((categoria, index) => (
-        <button
-          key={index}
-          onClick={() => handleFilterClick(categoria)}
-          className={categoriaAtiva === categoria ? 'filter-btn active' : 'filter-btn'}
-        >
-          {categoria}
-        </button>
-      ))}
-    </div> */}
       
-      {/* Galeria de projetos com animações */}
       <div className="gallery-container">
+        
         <TransitionGroup className="gallery">
           {projetos.map(projeto => (
+            <>
             <CSSTransition
               key={projeto.id}
               timeout={600}
@@ -66,9 +55,15 @@ const Gallery = ({ projetos }) => {
              
             </CSSTransition>
             
+            <div className="mobile-title">{projeto.nome}</div>
+                <div className="mobile-category">{projeto.categoria}</div>
+            </>
+            
           ))}
         </TransitionGroup>
+
       </div>
+     
     </>
   );
 };

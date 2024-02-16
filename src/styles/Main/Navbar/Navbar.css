@@ -1,26 +1,26 @@
 /* Estilo principal da Navbar */
 
-.navbar{
-  margin: 0;
-}
+
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
   background-color: #ffffff;
   width: 100%;
   overflow: hidden;
   min-height: 100px;
+  
 }
 
 
 .navbar :nth-child(0){
-  /* margin-right: auto; */
   width: 20%;
 }
 
-
+#logo{
+  z-index: 1010;
+}
 
 
 /* Estilo dos filtros e link 'About' */
@@ -29,7 +29,7 @@
   justify-content: space-between;
   align-items: center;
   flex-grow: 1; /* Permite que o menu cresça conforme necessário */
-  padding-left: 1rem; /* Adiciona um pouco de espaço à esquerda dos filtros */
+  margin-top: auto;
 }
 
 /* Div contendo os filtros */
@@ -39,6 +39,7 @@
   align-items: center; /* Centers filters on the cross axis */
   flex-grow: 1; /* Allows filters to grow and take available space */
   gap: 15px; /* Adjust padding as needed */
+
 }
 /* Botões de filtro */
 .navbar .filtros button .filtros .nav-link {
@@ -56,8 +57,8 @@
 /* Estilo do link 'About' */
 .navbar  {
   flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
+  display: flex-end;
+  justify-content: end;
   font-family: "Protest Strike", sans-serif;
   font-size: 16px;;
   font-weight: 800;
@@ -72,7 +73,9 @@
   }
 
 
-
+.links{
+  margin-top: auto;
+}
   
 .links a{
   display: flex;
@@ -92,11 +95,11 @@
 
 .togle-menu{
   position: fixed;
-  top: 110px;
+  top: 0px;
   right: 0;
   height: 100%;
   width: 300px;
-  z-index: 1500;
+  z-index: 999;
   background-color: rgba(255, 255, 255, 0.575);
   box-shadow: -10px 0 10px rgba(0, 0,0,0.1);
   flex-direction: column;
@@ -104,6 +107,7 @@
   justify-content: center;
   backdrop-filter: blur(10px);
   display: none;
+  gap: 10px;
 
 }
 
@@ -114,13 +118,15 @@
 
 .menu-button{
   display: none;
+
 }
 
-.linkss{
+.mobile-links a{
   display: flex;
   gap: 15px;
   text-decoration: none;
   color: black;
+  /* gap: 10px; */
 }
 
 
@@ -134,7 +140,10 @@
     display: 
     none;
     align-items: center;
+    
   }
+
+
 
   .links a{
     display: none;
@@ -142,6 +151,7 @@
 
   .menu-button{
     display:block;
+    z-index: 1010;
   }
   
  
@@ -150,8 +160,15 @@
 
 
 
-@media(max-width: 400px){
+@media(max-width: 510px){
   .togle-menu{
     width: 100%;
+    
   }
+
+ 
+
+
+  
+
 }

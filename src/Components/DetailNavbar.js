@@ -1,55 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Main/Navbar/DetailNavbar.css';
-
 const DetailNavbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMenuOpen(false); // Fecha o menu quando o tamanho da tela muda
-        };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    document.body.classList.toggle('menu-active', isMenuOpen);
+  };
 
-        window.addEventListener('resize', handleResize);
+  const showSidebar = () => {
+    setIsMenuOpen(true);
+    const sidebar = document.querySelector('.togle-menu');
+    sidebar.style.display = 'flex';
+  };
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+  // Function to hide the sidebar
+  const hideSidebar = () => {
+    setIsMenuOpen(false);
+    const sidebar = document.querySelector('.togle-menu');
+    sidebar.style.display = 'none';
+  };
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
 
-    return (
-        <nav className="navbar">
-            <div className="navbar-container">
-                <a href="/">
-                    <img src='/SiteLogo.png' alt='Logo' className="logo" />
-                </a>
-                <div className='links'>
-                <Link to="/team" className="nav-link desktop-link" >Team</Link>
+  return (
+    <>
+      <nav className="navbar">
+      <a href="/" id='Logo'>
+            <img src='/SiteLogo.png' alt='Logo' width={180}/>
+          </a>
 
-                <Link to="/about" className="nav-link desktop-link">About</Link>
-                </div>
-               
-
-                <div className="menu-icon" onClick={toggleMenu}>
-                    <img src='../../NavbarMenuTop.png' alt='Menu' className="mobile-icon"  width={35}/>
-                </div>
+         
+            <div className='links'>
+             <a href='/team' className='hideOnMobile'>Team</a> 
+            <a href='/about' className='hideOnMobile'>About</a> 
             </div>
-            {isMenuOpen && (
-                <div className="menu-overlay">
-                    <div className="menu-content">
-                        <Link to="/about" className="nav-link" onClick={toggleMenu}>About</Link>
-                        <Link to="/about" className="nav-link" onClick={toggleMenu}>Team</Link>
 
-                        {/* Adicione mais itens de menu aqui se necessário */}
-                    </div>
-                </div>
-            )}
-        </nav>
-    );
+            <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
+          {isMenuOpen
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={30} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
+        </li>
+
+
+        <div className="togle-menu">
+
+      
+            
+            
+            <div className='mobile-links'>
+            <a href='/' >Home</a>     
+            <a href='/team' >Team</a> 
+            <a href='/about' >About</a> 
+            </div>
+
+            </div>
+         
+         
+      </nav>
+         
+    </>
+  );
 };
-
 export default DetailNavbar;

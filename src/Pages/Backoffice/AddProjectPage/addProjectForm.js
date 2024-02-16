@@ -19,6 +19,9 @@ const AddProjectForm = () => {
   const [featuredImage, setFeaturedImage] = useState(null);
   const [galeria, setGaleria] = useState([]);
 
+  const [featuredMp4Videos, setFeaturedMp4Videos] = useState([]);
+
+
   const [youtubeLinks, setYoutubeLinks] = useState([]); // Estado para gerenciar os links do YouTube
   const navigate = useNavigate();
 
@@ -69,6 +72,7 @@ const AddProjectForm = () => {
 
 
 
+
   const handleUpload = async (file, folder) => {
     return new Promise((resolve, reject) => {
       fileUploader.uploadFile(
@@ -96,7 +100,8 @@ const AddProjectForm = () => {
     try {
       const imageUrl = featuredImage ? await handleUpload(featuredImage, 'featuredImages') : null;
       const galleryUrls = await Promise.all(galeria.map(file => handleUpload(file, 'gallery')));
-  
+      const mp4VideoUrls = await Promise.all(featuredMp4Videos.map(file => handleUpload(file, 'mp4Videos')));
+
       await addDoc(collection(projectFirestore, 'projetos'), {
         nome,
         autores,
@@ -104,6 +109,7 @@ const AddProjectForm = () => {
         featuredImage: imageUrl,
         youtubeLinks,
         galeria: galleryUrls.filter(url => url !== null),
+        mp4Videos: mp4VideoUrls,  // Armazenar os URLs dos vídeos .mp4
         slug: createSlug(nome), // Adiciona o slug aqui
       });
   
@@ -120,6 +126,9 @@ const AddProjectForm = () => {
   };
 
  
+  const handleMp4VideoChange = (e) => {
+    setFeaturedMp4Videos([...e.target.files]);
+  };
 
   return (
     <>
@@ -170,6 +179,22 @@ const AddProjectForm = () => {
           <label htmlFor="galeria" className="form-label">Galeria de Imagens</label>
           <input type="file" className="form-control" id="galeria" multiple accept=".png,.jpeg,.gif" onChange={handleGalleryChange} />
         </div>
+
+
+
+        <div className="mb-3">
+        <label htmlFor="featuredMovVideo" className="form-label">Vídeo em Destaque .mp4</label>
+                <input 
+          type="file" 
+          className="form-control" 
+          id="featuredMp4Video" 
+          onChange={handleMp4VideoChange} 
+          accept=".mp4"
+          multiple  // Para permitir a seleção de múltiplos ficheiros
+        />
+      </div>
+
+
 
         <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
           {isSubmitting ? `Carregando: ${uploadProgress.toFixed(0)}%` : 'Adicionar Projeto'}

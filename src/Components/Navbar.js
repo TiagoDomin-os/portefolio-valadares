@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/Main/Navbar/Navbar.css';
-
 const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // const toggleMenu = () => {
   //   setIsMenuOpen(!isMenuOpen);
   //   document.body.classList.toggle('menu-active', isMenuOpen);
-  // },
+  // };
 
   const showSidebar = () => {
     setIsMenuOpen(true);
@@ -23,16 +21,15 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
     sidebar.style.display = 'none';
   };
 
+
   return (
     <>
       <nav className="navbar">
-         
-          <a href="/" >
+      <a href="/" id='Logo'>
             <img src='/SiteLogo.png' alt='Logo' width={180}/>
           </a>
 
-
-          <div >
+          <div className="regular-menu">
             <div id='filtros' className='hideOnMobile'  >
             {categorias.map((categoria, index) => (
               <button
@@ -45,6 +42,7 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
             ))}
             </div>
             </div>
+
             <div className='links'>
              <a href='/team' className='hideOnMobile'>Team</a> 
             <a href='/about' className='hideOnMobile'>About</a> 
@@ -56,40 +54,33 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
             : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
         </li>
 
-           <div className="togle-menu">
-           
-           <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
-          {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={30} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
-        </li>
 
+       
+        <div className="togle-menu">
 
-            <div >
-            {categorias.map((categoria, index) => (
-              <button
-                key={index}
-                onClick={() => onFilterClick(categoria)}
-                className={categoriaAtiva === categoria ? 'nav-link active' : 'nav-link'}
-              >
-                {categoria}
-              </button>
-            ))}
-            </div>
-            
-            
-            <div>
-            <a href='/team' >Team</a> 
-            <a href='/about' >About</a> 
-            </div>
+<div >
+    {categorias.map((categoria, index) => (
+      <button
+        key={index}
+        onClick={() => onFilterClick(categoria)}
+        className={categoriaAtiva === categoria ? 'nav-link active' : 'nav-link'}
+      >
+        {categoria}
+      </button>
+    ))}
+    </div>
+    
+    
+    <div className='mobile-links'>
+    <a href='/team' >Team</a> 
+    <a href='/about' >About</a> 
+    </div>
 
-            </div>
-         
+    </div>
          
       </nav>
-      
+         
     </>
   );
 };
-
 export default Navbar;
