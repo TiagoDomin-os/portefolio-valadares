@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import '../styles/Main/HomeGalery.css';
-import '../styles/Main/HomePageFilter.css';
+// import '../styles/Main/HomePageFilter.css';
 
 
 const Gallery = ({ projetos }) => {
@@ -12,19 +12,6 @@ const Gallery = ({ projetos }) => {
     return <div className="spinner"></div>;
   };
   
-    // const [filtroCategoria, setFiltroCategoria] = useState('All');
-    // const [categoriaAtiva, setCategoriaAtiva] = useState('All');
-
-    // const handleFilterClick = categoria => {
-    //     setFiltroCategoria(categoria);
-    //     setCategoriaAtiva(categoria);
-    //   };
-
-
-
-  // const categorias = ['All', ...new Set(projetos.map(projeto => projeto.categoria))];
-
-  // const filtrarProjetos = filtroCategoria === 'All' ? projetos : projetos.filter(projeto => projeto.categoria === filtroCategoria);
 
   return (
     <>

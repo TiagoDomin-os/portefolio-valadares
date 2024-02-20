@@ -27,7 +27,7 @@ const DetailNavbar = () => {
     <>
       <nav className="navbar">
       <a href="/" id='Logo'>
-            <img src='/SiteLogo.png' alt='Logo' width={180}/>
+            <img src='/SiteLogo.png' alt='Logo' width={150}/>
           </a>
 
          
@@ -38,8 +38,8 @@ const DetailNavbar = () => {
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={30} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={170} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu'  width={170} />}
         </li>
 
 

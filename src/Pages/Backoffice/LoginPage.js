@@ -15,7 +15,7 @@ const LoginPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Aqui você faria a verificação com seu backend ou serviço de autenticação
-    if (username === 'uniquevision' && password === 'unique') { // Substitua esta lógica pela verificação real
+    if (username === 'uniquevision' && password === 'unique') { 
       login(username, password);
       navigate('/backoffice');
     } else {

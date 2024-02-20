@@ -16,4 +16,5 @@ const CreditSection = ({ nomeProjeto, autores, categoria }) => {
   );
 };
 
+
 export default CreditSection;

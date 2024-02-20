@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import '../styles/Main/Navbar/Navbar.css';
+
+
+
 const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // const toggleMenu = () => {
-  //   setIsMenuOpen(!isMenuOpen);
-  //   document.body.classList.toggle('menu-active', isMenuOpen);
-  // };
+ 
 
   const showSidebar = () => {
     setIsMenuOpen(true);
@@ -26,7 +28,7 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
     <>
       <nav className="navbar">
       <a href="/" id='Logo'>
-            <img src='/SiteLogo.png' alt='Logo' width={180}/>
+            <img src='/SiteLogo.png' alt='Logo' width={150}/>
           </a>
 
           <div className="regular-menu">
@@ -44,14 +46,16 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
             </div>
 
             <div className='links'>
-             <a href='/team' className='hideOnMobile'>Team</a> 
-            <a href='/about' className='hideOnMobile'>About</a> 
+             {/* <a href='/team' className='hideOnMobile'>Team</a> 
+            <a href='/about' className='hideOnMobile'>About</a>  */}
+            <Link to='/team'>Team</Link>
+  	    <Link to='/about'>About</Link>
             </div>
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={30} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={30} />}
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={170} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={170} />}
         </li>
 
 
@@ -63,6 +67,7 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
       <button
         key={index}
         onClick={() => onFilterClick(categoria)}
+      
         className={categoriaAtiva === categoria ? 'nav-link active' : 'nav-link'}
       >
         {categoria}

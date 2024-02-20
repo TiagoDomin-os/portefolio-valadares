@@ -1,5 +1,3 @@
-/* Estilo principal da Navbar */
-
 
 
 .navbar {
@@ -43,12 +41,7 @@
 }
 /* Botões de filtro */
 .navbar .filtros button .filtros .nav-link {
-  /* font-family: "Protest Strike", sans-serif;
-  font-size: 16px;;
-  font-weight: 800;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-transform: uppercase; */
+ 
   background-color: transparent;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -166,9 +159,14 @@
     
   }
 
- 
+}
 
 
-  
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+.welcome-animation {
+  animation: fadeIn 2s ease-out;
 }
