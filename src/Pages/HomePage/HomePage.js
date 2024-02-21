@@ -55,17 +55,18 @@ const HomePage = () => {
 
 
 
+ 
+
+
+  const [filtroCategoria, setFiltroCategoria] = useState('All');
+  const [categoriaAtiva, setCategoriaAtiva] = useState('All');
+
   const handleFilterClick = categoria => {
     setFiltroCategoria(categoria);
     setCategoriaAtiva(categoria);
   };
 
-  const [filtroCategoria, setFiltroCategoria] = useState('All');
-  const [categoriaAtiva, setCategoriaAtiva] = useState('All');
-
   const categorias = ['All', ...new Set(projetos.map(projeto => projeto.categoria))];
-
-
 
 
   
@@ -87,7 +88,7 @@ const HomePage = () => {
       )} */}
 
       <Navbar categorias={categorias} onFilterClick={handleFilterClick} categoriaAtiva={categoriaAtiva} />
-      <Gallery projetos={projetos.filter(projeto => filtroCategoria === 'All' || projeto.categoria === filtroCategoria)} />
+      <Gallery projetos={projetos} filtroCategoria={filtroCategoria} /> {/* Passando filtroCategoria para Gallery */}
       <Footer />
     </>
   );

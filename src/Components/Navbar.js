@@ -54,8 +54,8 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={170} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={170} />}
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={50} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={50} />}
         </li>
 
 

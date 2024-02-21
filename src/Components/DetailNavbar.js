@@ -32,14 +32,16 @@ const DetailNavbar = () => {
 
          
             <div className='links'>
+            <a href='/' className='hideOnMobile'>Portefolio</a> 
+             
              <a href='/team' className='hideOnMobile'>Team</a> 
             <a href='/about' className='hideOnMobile'>About</a> 
             </div>
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={170} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu'  width={170} />}
+            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={50} />
+            : <img src='/NavbarMenuTop.png' alt='Open Menu'  width={50} />}
         </li>
 
 
@@ -49,7 +51,7 @@ const DetailNavbar = () => {
             
             
             <div className='mobile-links'>
-            <a href='/' >Home</a>     
+            <a href='/' >Portefolio</a>     
             <a href='/team' >Team</a> 
             <a href='/about' >About</a> 
             </div>

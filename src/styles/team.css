@@ -18,10 +18,10 @@
   }
   
   /* Estilo para telas com largura até 825 pixels */
-  @media (max-width: 825px) {
+  /* @media (max-width: 825px) {
     .client-logo {
-      content: url('../../public/team/team_vertical.png'); /* Muda para uma imagem vertical */
-      /* A propriedade 'content' com a função 'url()' substituirá o 'src' da tag <img> */
+      content: url('../../public/team/team_vertical.png');
+     
     }
   }
-  
+   */
