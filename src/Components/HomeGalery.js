@@ -24,10 +24,12 @@ class Gallery extends React.Component {
     const projetosFiltrados = this.filtrarProjetos();
 
     return (
+     
       <div className="gallery-container">
         <TransitionGroup className="gallery">
           {projetosFiltrados.map(projeto => (
             <CSSTransition key={projeto.id} timeout={600} classNames="fade">
+           
               <Link to={`/projetos/${projeto.slug}`} className="gallery-item">
                 {projeto.featuredImage ? (
                   <img src={projeto.featuredImage} alt={projeto.nome} loading="lazy" className="gallery-item-img" />
@@ -40,10 +42,14 @@ class Gallery extends React.Component {
                 <div className="gallery-item-title">{projeto.nome}</div>
                 <div className="gallery-item-category">{projeto.categoria}</div>
               </Link>
+             
+              
+
             </CSSTransition>
           ))}
         </TransitionGroup>
       </div>
+      
     );
   }
 }
