@@ -1,0 +1,202 @@
+
+.detail-navbar {
+    display: flex;
+    justify-content: space-between; /* Para centralizar os itens dentro da navbar */
+    align-items: end;
+    background-color: #ffffff;
+    max-width: 1200px; /* Adicione a unidade de medida */
+    width: 95%;
+    margin: 0 auto; /* Margens automáticas para centralizar a navbar */
+    overflow: hidden;
+    min-height: 100px;
+  
+    
+    font-family: "Protest Strike", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  
+  
+  
+  
+  .navbar :nth-child(0){
+    width: 20%;
+  }
+  
+  #logo{
+    z-index: 1010;
+  }
+  
+  
+  /* Estilo dos filtros e link 'About' */
+   .regular-menu {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    flex-grow: 1; /* Permite que o menu cresça conforme necessário */
+    margin-top: auto;
+  }
+  
+  /* Div contendo os filtros */
+  #filtros {
+    display: flex; /* Enables flexbox for filters */
+    justify-content: center; /* Centers filters on the main axis */
+    align-items: center; /* Centers filters on the cross axis */
+    flex-grow: 1; /* Allows filters to grow and take available space */
+    gap: 15px; /* Adjust padding as needed */
+  
+  }
+  /* Botões de filtro */
+  .navbar .filtros button .filtros .nav-link {
+   
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+   
+  }
+  
+  /* Estilo do link 'About' */
+  
+  
+  
+  .links {
+    display: flex; /* Isso alinhará os links lado a lado */
+    gap: 15px; /* Mantém um espaço entre os links */
+    margin-top: auto; /* Ajuste conforme necessário */
+    text-decoration: none;
+    color: black;
+  }
+  
+  /* Remova 'display: flex;' dos links individuais se não for necessário para o conteúdo interno */
+  .links a {
+    text-decoration: none;
+    color: black;
+    /* margin-right: 20px; */
+    /* font-weight: 400; */
+  }
+   
+  
+  /* Ícone do menu para dispositivos móveis */
+  .navbar .menu-icon {
+    display: none; /* Esconde por padrão, será exibido em uma media query abaixo */
+    cursor: pointer;
+  }
+  
+  
+  .togle-menu{
+    position: fixed;
+    top: 110px;
+    right: 0;
+    height: auto;
+    width: 100%;
+    padding-left:5% ;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 1);
+    /* box-shadow: -10px 0 10px rgba(0, 0,0,0.1); */
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    /* backdrop-filter: blur(20px); */
+    display: none;
+    gap: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition-duration: 1800ms;
+  
+  }
+  
+  .togle-menu li{
+    width: 100%;
+  }
+  .togle-menu a{width: 100%;}
+  
+  .menu-button{
+    display: none;
+  
+  }
+  
+  .mobile-links a{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+    text-decoration: none;
+    color: black;
+   
+  }
+  
+  
+  
+  @media screen and (min-width: 826px) {
+    .togle-menu {
+      display: none !important; /* Força a esconder o menu de alternância em telas largas */
+    }
+  }
+  
+  
+  /* Estilo para dispositivos móveis */
+  @media (max-width: 825px) {
+    .hideOnMobile{
+      display: none;
+    }
+  
+    #filtros{
+      display: 
+      none;
+      align-items: center;
+      
+    }
+  
+  
+    .navbar{
+      width: 85%;
+    }  
+  
+  
+    .links a{
+      display: none;
+    }
+  
+    .menu-button{
+      display:block;
+      z-index: 1010;
+    }
+    
+    .togle-menu button {
+      width: 100%; /* Ocupa toda a largura do contêiner para centralizar o texto */
+      display: flex; /* Habilita flexbox para o botão */
+      justify-content: start; /* Centraliza o conteúdo do botão na horizontal */
+      align-items: center; /* Centraliza o conteúdo do botão na vertical */
+      padding-bottom: 4px;
+    }
+  
+  }
+  
+  
+  
+  @media(max-width: 510px){
+    .togle-menu{
+      width: 100%;
+      
+    }
+  
+  }
+  
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .welcome-animation {
+    animation: fadeIn 2s ease-out;
+  }
+  

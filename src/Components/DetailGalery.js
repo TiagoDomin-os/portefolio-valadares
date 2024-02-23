@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Main/DetailGalery.css'; // Verifique se o caminho do CSS está correto
+import '../styles/Main/ProjectDetail/DetailGalery.css'; // Verifique se o caminho do CSS está correto
 
 const DetailGallery = ({ media }) => {
   const [featured, setFeatured] = useState(media[0]);

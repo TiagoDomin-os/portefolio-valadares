@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import '../styles/Main/Navbar/Navbar.css';
@@ -24,6 +24,21 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
   };
 
 
+// Adicionando ouvinte de eventos para redimensionamento da janela
+useEffect(() => {
+  function handleResize() {
+    if (window.innerWidth > 825) {
+      hideSidebar(); // Esconde o menu se a tela for maior que 825px
+    }
+  }
+
+  // Adiciona o ouvinte de eventos quando o componente é montado
+  window.addEventListener('resize', handleResize);
+
+  // Limpa o ouvinte de eventos quando o componente é desmontado
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+
   return (
     <>
       <nav className="navbar">
@@ -48,14 +63,14 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
             <div className='links'>
              {/* <a href='/team' className='hideOnMobile'>Team</a> 
             <a href='/about' className='hideOnMobile'>About</a>  */}
-            <Link to='/team'>Team</Link>
-  	    <Link to='/about'>About</Link>
+            {/* <Link to='/team'>MEET THE TEAM</Link> */}
+  	    <Link to='/about'>ABOUT</Link>
             </div>
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={50} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={50} />}
+            ? <img src='/NavbarMenuTop.png' alt='Close Menu' width={50} />
+            : <img src='/NavbarMenuDown.png' alt='Open Menu' width={50} />}
         </li>
 
 
@@ -77,8 +92,8 @@ const Navbar = ({ categorias, onFilterClick, categoriaAtiva }) => {
     
     
     <div className='mobile-links'>
-    <a href='/team' >Team</a> 
-    <a href='/about' >About</a> 
+    <a href='/team' >MEET THE TEAM</a> 
+    <a href='/about' >ABOUT</a> 
     </div>
 
     </div>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/about.css';
+import '../styles/Main/OtherPages/about.css';
 import DetailNavbar from '../Components/DetailNavbar';
 import Footer from '../Components/Footer';
 
 const AboutUs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const imageUrl = windowWidth <= 825 ? '/about/vertical.png' : '/about/about.png';
+  const imageUrl = windowWidth <= 825 ? '/about/tryBout.png' : '/about/tryBout.png';
   const BannerimageUrl = windowWidth <= 825 ? '/about/aboutUsBanner.png' : '/about/aboutUsBanner.png';
 
   useEffect(() => {

@@ -1,15 +1,30 @@
 
-
 .navbar {
   display: flex;
-  justify-content: end;
-  align-items: center;
+  justify-content: center; /* Para centralizar os itens dentro da navbar */
+  align-items: end;
   background-color: #ffffff;
-  width: 100%;
+  max-width: 1200px; /* Adicione a unidade de medida */
+  width: 95%;
+  margin: 0 auto; /* Margens automáticas para centralizar a navbar */
   overflow: hidden;
   min-height: 100px;
+
+  margin-bottom: 25px;
   
+  font-family: "Protest Strike", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+
+
 
 
 .navbar :nth-child(0){
@@ -24,7 +39,7 @@
 /* Estilo dos filtros e link 'About' */
  .regular-menu {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   flex-grow: 1; /* Permite que o menu cresça conforme necessário */
   margin-top: auto;
@@ -45,38 +60,28 @@
   background-color: transparent;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+ 
 }
 
 /* Estilo do link 'About' */
-.navbar  {
-  flex-grow: 1;
-  display: flex-end;
-  justify-content: end;
-  font-family: "Protest Strike", sans-serif;
-  font-size: 16px;;
-  font-weight: 800;
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: transparent;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  /* text-transform: uppercase; */
-
-  }
 
 
-.links{
-  margin-top: auto;
-}
-  
-.links a{
-  display: flex;
-  gap: 15px;
+
+.links {
+  display: flex; /* Isso alinhará os links lado a lado */
+  gap: 15px; /* Mantém um espaço entre os links */
+  margin-top: auto; /* Ajuste conforme necessário */
   text-decoration: none;
   color: black;
-  
-  }
+}
+
+/* Remova 'display: flex;' dos links individuais se não for necessário para o conteúdo interno */
+.links a {
+  text-decoration: none;
+  color: black;
+  /* margin-right: 20px; */
+  /* font-weight: 400; */
+}
  
 
 /* Ícone do menu para dispositivos móveis */
@@ -87,27 +92,31 @@
 
 
 .togle-menu{
-  position: fixed;
-  top: 0px;
+  /* position: fixed; */
+  top: 110px;
   right: 0;
-  height: 100%;
-  width: 300px;
+  height: auto;
+  width: 100%;
   z-index: 999;
-  background-color: rgba(255, 255, 255, 0.575);
-  box-shadow: -10px 0 10px rgba(0, 0,0,0.1);
+  background-color: rgba(255, 255, 255, 1);
+  /* box-shadow: -10px 0 10px rgba(0, 0,0,0.1); */
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(20px); */
   display: none;
-  gap: 10px;
+  gap: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-duration: 1800ms;
 
 }
 
 .togle-menu li{
   width: 100%;
 }
-.togle-menua{width: 100%;}
+.togle-menu a{width: 100%;}
 
 .menu-button{
   display: none;
@@ -116,10 +125,20 @@
 
 .mobile-links a{
   display: flex;
+  flex-direction: column;
+  align-items: start;
   gap: 15px;
   text-decoration: none;
   color: black;
-  /* gap: 10px; */
+ 
+}
+
+
+
+@media screen and (min-width: 826px) {
+  .togle-menu {
+    display: none !important; /* Força a esconder o menu de alternância em telas largas */
+  }
 }
 
 
@@ -137,6 +156,10 @@
   }
 
 
+  .navbar{
+    width: 85%;
+  }  
+
 
   .links a{
     display: none;
@@ -147,7 +170,13 @@
     z-index: 1010;
   }
   
- 
+  .togle-menu button {
+    width: 100%; /* Ocupa toda a largura do contêiner para centralizar o texto */
+    display: flex; /* Habilita flexbox para o botão */
+    justify-content: start; /* Centraliza o conteúdo do botão na horizontal */
+    align-items: center; /* Centraliza o conteúdo do botão na vertical */
+    padding-bottom: 4px;
+  }
 
 }
 

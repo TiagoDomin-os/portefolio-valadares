@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Main/Navbar/DetailNavbar.css';
+import '../styles/Main/DetailNavbar/DetailNavbar.css';
 const DetailNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -25,17 +25,17 @@ const DetailNavbar = () => {
 
   return (
     <>
-      <nav className="navbar">
+      <nav className="detail-navbar">
       <a href="/" id='Logo'>
             <img src='/SiteLogo.png' alt='Logo' width={150}/>
           </a>
 
          
             <div className='links'>
-            <a href='/' className='hideOnMobile'>Portefolio</a> 
+            {/* <a href='/' className='hideOnMobile'>PORTFOLIO</a>  */}
              
-             <a href='/team' className='hideOnMobile'>Team</a> 
-            <a href='/about' className='hideOnMobile'>About</a> 
+             <a href='/team' className='hideOnMobile'>MEET THE TEAM</a> 
+            {/* <a href='/about' className='hideOnMobile'>About</a>  */}
             </div>
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
@@ -51,9 +51,9 @@ const DetailNavbar = () => {
             
             
             <div className='mobile-links'>
-            <a href='/' >Portefolio</a>     
-            <a href='/team' >Team</a> 
-            <a href='/about' >About</a> 
+            <a href='/' >PORTEFOLIO</a>     
+            <a href='/team' >MEET THE TEAM</a> 
+            {/* <a href='/about' >About</a>  */}
             </div>
 
             </div>

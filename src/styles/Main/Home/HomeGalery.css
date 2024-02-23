@@ -6,7 +6,7 @@
     width: 95%;
     margin: auto;
     min-height: 80vh;
-    max-width: 1200px;
+    max-width: 1300px;
   }
   
   .gallery {
@@ -26,7 +26,7 @@
     cursor: pointer;
     aspect-ratio: 16/9;
     background-color: #ccc;
-
+    display: block;
 
   
   }
@@ -107,13 +107,13 @@
       font-size: 4.5vw; /* Tamanho do texto */
       font-weight: 700;
       line-height: 0.9; /* Adjust the font size as needed */
-      /* Add any other styles you need for the title */
-    }
+margin-top: 15px;    }
 
     .mobile-category {
       display: block; /* Show the title on mobile devices */
       text-align: center; /* Center the title */
-      margin-bottom: 0.5rem; /* Add some margin at the top */
+      margin-bottom: 0.7rem; /* Add some margin at the top */
+      margin-top: 10px;
       font-size: 2.6vw; /* Tamanho do texto */
       font-weight: 700;
       line-height: 1.2; /* Adjust the font size as needed */

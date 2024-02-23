@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import '../styles/Main/HomeGalery.css';
-import '../styles/Main/HomePageFilter.css';
+import '../styles/Main/Home/HomeGalery.css';
+
 
 
 class Gallery extends React.Component {
@@ -24,32 +25,28 @@ class Gallery extends React.Component {
     const projetosFiltrados = this.filtrarProjetos();
 
     return (
-     
       <div className="gallery-container">
         <TransitionGroup className="gallery">
           {projetosFiltrados.map(projeto => (
             <CSSTransition key={projeto.id} timeout={600} classNames="fade">
-           
-              <Link to={`/projetos/${projeto.slug}`} className="gallery-item">
-                {projeto.featuredImage ? (
-                  <img src={projeto.featuredImage} alt={projeto.nome} loading="lazy" className="gallery-item-img" />
-                ) : (
-                  <div className="gallery-item-skeleton">
-                    {/* Substitua isso pelo seu componente de LoadingSpinner conforme necessário */}
-                    <div>Loading...</div>
-                  </div>
-                )}
-                <div className="gallery-item-title">{projeto.nome}</div>
-                <div className="gallery-item-category">{projeto.categoria}</div>
-              </Link>
-             
-              
-
+              <div className="project-container"> {/* Envolver os elementos em um novo div */}
+                <Link to={`/projetos/${projeto.slug}`} className="gallery-item">
+                  {projeto.featuredImage ? (
+                    <img src={projeto.featuredImage} alt={projeto.nome} loading="lazy" className="gallery-item-img" />
+                  ) : (
+                    <div className="gallery-item-skeleton">Loading...</div>
+                  )}
+                  <div className="gallery-item-title">{projeto.nome}</div>
+                  <div className="gallery-item-category">{projeto.categoria}</div>
+                </Link>
+                {/* Adicionando os elementos fora do Link mas ainda dentro do CSSTransition */}
+                <div className="mobile-title">{projeto.nome}</div>
+                <div className="mobile-category">{projeto.categoria}</div>
+              </div>
             </CSSTransition>
           ))}
         </TransitionGroup>
       </div>
-      
     );
   }
 }

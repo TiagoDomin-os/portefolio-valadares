@@ -1,9 +1,8 @@
 .about-us-container {
     padding-top: 3rem;
-    margin: auto;
+    /* margin: auto; */
     max-width: 1200px;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    
   }
   
   .logo-container {

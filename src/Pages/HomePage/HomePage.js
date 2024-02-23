@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { projectFirestore } from '../../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import '../../styles/Main/HomePage.css';
+import '../../styles/Main/Home/HomePage.css';
 import Gallery from '../../Components/HomeGalery';
 import Navbar from '../../Components/Navbar';
 import Footer from '../../Components/Footer';

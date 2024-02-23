@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/team.css';
+import '../styles/Main/OtherPages/team.css';
 import DetailNavbar from '../Components/DetailNavbar';
 import Footer from '../Components/Footer';
 

@@ -1,7 +1,7 @@
 // CreditSection.js
 
 import React from 'react';
-import '../styles/Main/CreditSection.css'; // Caminho para o seu arquivo CSS
+import '../styles/Main/ProjectDetail/CreditSection.css'; // Caminho para o seu arquivo CSS
 
 const CreditSection = ({ nomeProjeto, autores, categoria }) => {
   return (
