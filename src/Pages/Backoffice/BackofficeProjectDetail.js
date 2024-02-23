@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { projectFirestore, projectStorage } from '../../firebase/config';
 import FileUploader from '../Backoffice/AddProjectPage/fileUploaded';
-import BackofficeNavbar from '../../Components/BackofficeNavbar';
+import BackofficeNavbar from '../../Components/Navbars/BackofficeNavbar';
 import { ref, deleteObject } from "firebase/storage";
 
 const fileUploader = new FileUploader(projectStorage);

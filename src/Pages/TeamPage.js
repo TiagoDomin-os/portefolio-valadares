@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Main/OtherPages/team.css';
-import DetailNavbar from '../Components/DetailNavbar';
+import teamNavbar from '../Components/Navbars/teamNavbar';
 import Footer from '../Components/Footer';
 
 const Team = () => {
@@ -24,7 +24,7 @@ const Team = () => {
 
   return (
     <>
-      <DetailNavbar />
+      <teamNavbar />
       <div className="about-us-container">
         <div className="logo-grid">
           <div className="logo-container">

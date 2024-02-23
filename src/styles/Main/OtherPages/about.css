@@ -1,5 +1,5 @@
 .about-us-container {
-    padding-top: 3rem;
+    /* padding-top: 3rem; */
     /* margin: auto; */
     max-width: 1200px;
     
@@ -9,6 +9,7 @@
     /* Supondo que .logo-container ocupará toda a largura disponível da .about-us-container */
     width: 100%;
     display: block; /* Isso é necessário se .logo-container não for um elemento de bloco por padrão */
+    max-width: 1200;
   }
   
   .client-logo {

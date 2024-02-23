@@ -3,7 +3,7 @@ import { collection, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom';
 import { projectFirestore, projectStorage } from '../../firebase/config';
 import { ref, deleteObject } from "firebase/storage";
-import BackofficeNavbar from '../../Components/BackofficeNavbar';
+import BackofficeNavbar from '../../Components/Navbars/BackofficeNavbar';
 import '../../styles/BackOffice/ProjectList.css'; // Caminho do arquivo CSS
 
 

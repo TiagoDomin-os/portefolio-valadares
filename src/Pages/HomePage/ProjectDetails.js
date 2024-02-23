@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { projectFirestore } from '../../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
-import Navbar from '../../Components/Navbar';
 import CreditSection from '../../Components/CreditSection';
 import DetailGallery from '../../Components/DetailGalery';
 import Footer from '../../Components/Footer';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import DetailNavbar from '../../Components/DetailNavbar';
+import DetailNavbar from '../../Components/Navbars/DetailNavbar';
 
 
   const ProjectDetails = () => {

@@ -5,11 +5,12 @@
     align-items: end;
     background-color: #ffffff;
     max-width: 1200px; /* Adicione a unidade de medida */
-    width: 95%;
+    width: 70%;
     margin: 0 auto; /* Margens automáticas para centralizar a navbar */
     overflow: hidden;
     min-height: 100px;
-  
+    margin-bottom: 25px;
+
     
     font-family: "Protest Strike", sans-serif;
     font-size: 16px;
@@ -21,9 +22,30 @@
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
-  
-  
-  
+
+  .team-navbar {
+    display: flex;
+    justify-content: space-between; /* Para centralizar os itens dentro da navbar */
+    align-items: end;
+    background-color: #ffffff;
+    max-width: 1200px; /* Adicione a unidade de medida */
+    width: 100%;
+    margin: 0 auto; /* Margens automáticas para centralizar a navbar */
+    overflow: hidden;
+    min-height: 100px;
+    margin-bottom: 25px;
+
+    
+    font-family: "Protest Strike", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
   
   
   .navbar :nth-child(0){

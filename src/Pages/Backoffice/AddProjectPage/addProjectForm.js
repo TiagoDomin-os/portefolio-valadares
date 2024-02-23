@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { projectStorage, projectFirestore } from '../../../firebase/config';
 import { collection, addDoc } from 'firebase/firestore';
 import FileUploader from './fileUploaded'; // Ajuste o caminho conforme necessário
-import BackofficeNavbar from '../../../Components/BackofficeNavbar';
+import BackofficeNavbar from '../../../Components/Navbars/BackofficeNavbar';
 
 import { useNavigate } from 'react-router-dom'; // Importe useNavigate
 

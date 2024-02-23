@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Main/DetailNavbar/DetailNavbar.css';
+import '../../styles/Main/DetailNavbar/DetailNavbar.css';
 const DetailNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

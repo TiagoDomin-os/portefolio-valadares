@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Main/OtherPages/about.css';
-import DetailNavbar from '../Components/DetailNavbar';
+import DetailNavbar from '../Components/Navbars/DetailNavbar';
 import Footer from '../Components/Footer';
 
 const AboutUs = () => {
