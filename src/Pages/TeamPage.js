@@ -48,7 +48,7 @@ export default Team;
 
 const Gallery = () => {
   return (
-    <div className="gallery-container" style={{ maxWidth: '1200px', margin: 'auto', padding: '20px' }}>
+    <div className="team-gallery-container" style={{ maxWidth: '1200px', margin: 'auto', padding: '20px' }}>
       <div className="team-member">
         <img src="/team/teamMembers/1.png" alt="Diogo Valadares" className="team-photo" />
         <div className="team-info">

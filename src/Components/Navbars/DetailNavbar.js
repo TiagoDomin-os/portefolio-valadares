@@ -25,7 +25,7 @@ const DetailNavbar = () => {
 
   return (
     <>
-      <nav className="detail-navbar">
+      <nav className="navbar">
       <a href="/" id='Logo'>
             <img src='/SiteLogo.png' alt='Logo' width={150}/>
           </a>

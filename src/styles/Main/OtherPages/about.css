@@ -52,7 +52,6 @@
     width: 100%; /* Faz a imagem ocupar toda a largura do item da galeria */
     height: auto; /* Mantém a proporção da imagem */
     object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem perder suas proporções */
-    padding: 10%;
   }
   
 

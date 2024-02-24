@@ -25,7 +25,7 @@ const AboutNavbar = () => {
 
   return (
     <>
-      <nav className="team-navbar">
+      <nav className="navbar">
         <a href="/" id='Logo'>
           <img src='/SiteLogo.png' alt='Logo' width={150}/>
         </a>
@@ -36,8 +36,8 @@ const AboutNavbar = () => {
         </div>
         <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={50} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu' width={50} />}
+            ? <img src='/NavbarMenuTop.png' alt='Close Menu' width={50} />
+            : <img src='/NavbarMenuDown.png' alt='Open Menu' width={50} />}
         </li>
         <div className="togle-menu">
           <div className='mobile-links'>
