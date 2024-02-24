@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/Main/DetailNavbar/DetailNavbar.css';
 
-const TeamNavbar = () => {
+const AboutNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -30,7 +31,7 @@ const TeamNavbar = () => {
         </a>
         <div className='links'>
           <a href='/' className='hideOnMobile'>PORTFOLIO</a>
-          <a href='/about' className='hideOnMobile'>ABOUT</a> 
+          <a href='/team' className='hideOnMobile'>MEET THE TEAM</a> 
           {/* <a href='/about' className='hideOnMobile'>About</a> */}
         </div>
         <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
@@ -41,7 +42,7 @@ const TeamNavbar = () => {
         <div className="togle-menu">
           <div className='mobile-links'>
             <a href='/' >PORTFOLIO</a>     
-            <a href='/about' >ABOUT</a> 
+            <a href='/team' >MEET THE TEAM</a> 
             {/* <a href='/about' >About</a> */}
           </div>
         </div>
@@ -50,4 +51,4 @@ const TeamNavbar = () => {
   );
 };
 
-export default TeamNavbar;
+export default AboutNavbar;

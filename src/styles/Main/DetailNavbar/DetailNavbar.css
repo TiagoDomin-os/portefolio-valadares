@@ -29,7 +29,7 @@
     align-items: end;
     background-color: #ffffff;
     max-width: 1200px; /* Adicione a unidade de medida */
-    width: 100%;
+    width: 95%;
     margin: 0 auto; /* Margens automáticas para centralizar a navbar */
     overflow: hidden;
     min-height: 100px;

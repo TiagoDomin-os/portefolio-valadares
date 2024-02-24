@@ -1,9 +1,16 @@
 .project-list-container {
     padding: 20px;
-    background: #f5f5f5; /* Cor de fundo da área da lista */
+    background: #ffffff; /* Cor de fundo da área da lista */
     min-height: 100vh; /* Altura mínima */
+    max-width: 1200px;
+    flex: auto;
+    margin: 0 auto; /* Centraliza o contêiner na horizontal */
+
   }
   
+
+ 
+
   .project-card {
     display: flex;
     align-items: center;

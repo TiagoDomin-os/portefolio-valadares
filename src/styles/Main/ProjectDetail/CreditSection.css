@@ -10,6 +10,7 @@
   flex-direction: column; /* Elementos empilhados verticalmente */
   width: 70%; /* Largura consistente com .detail-gallery */
   margin: auto; /* Centraliza na página */
+  max-width: 1200px;
 }
 
 .credit-title {

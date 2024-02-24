@@ -5,18 +5,16 @@ import '../../styles/Main/Navbar/Navbar.css';
 const BackofficeNavbar = () => {
     return (
         <nav className="navbar">
-          <div className="navbar-container">
-            <img src='/SiteLogo.png' alt='Logo' style={{ maxWidth: '200px', maxHeight: '90px' }} />
+            
+            <img src='/SiteLogo.png'  id='Logo' alt='Logo' style={{ maxWidth: '200px', maxHeight: '90px' }} />
             <div className="menu">
 
-            <Link to="/backoffice" className="backoffice-nav-link">Site         </Link>
+              <div className='links'>
+                          {/* <Link to="/backoffice" >Site         </Link> */}
 
-              {/* Link para a página principal da lista de projetos no backoffice */}
-              <Link to="/backoffice/ProjectList" className="backoffice-nav-link">Lista de Projetos           </Link>
-              {/* Link para a página de adicionar novos projetos */}
-              <Link to="/backoffice/add-project" className="backoffice-nav-link">Adicionar Projeto</Link>
-            
-            </div>
+              <Link to="/backoffice/" >Lista de Projetos           </Link>
+              <Link to="/backoffice/add-project" >Adicionar Projeto</Link>
+              </div>
           </div>
         </nav>
       );

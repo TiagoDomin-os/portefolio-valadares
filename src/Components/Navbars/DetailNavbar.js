@@ -34,14 +34,16 @@ const DetailNavbar = () => {
             <div className='links'>
             {/* <a href='/' className='hideOnMobile'>PORTFOLIO</a>  */}
              
-             <a href='/team' className='hideOnMobile'>MEET THE TEAM</a> 
+             {/* <a href='/team' className='hideOnMobile'>MEET THE TEAM</a>  */}
             {/* <a href='/about' className='hideOnMobile'>About</a>  */}
+            <a href='/' className='hideOnMobile'>PORTEFOLIO</a> 
+
             </div>
 
             <li className='menu-button' onClick={isMenuOpen ? hideSidebar : showSidebar}>
           {isMenuOpen
-            ? <img src='/NavbarMenuDown.png' alt='Close Menu' width={50} />
-            : <img src='/NavbarMenuTop.png' alt='Open Menu'  width={50} />}
+            ? <img src='/NavbarMenuTop.png' alt='Close Menu' width={50} />
+            : <img src='/NavbarMenuDown.png' alt='Open Menu'  width={50} />}
         </li>
 
 
@@ -53,7 +55,7 @@ const DetailNavbar = () => {
             <div className='mobile-links'>
             <a href='/' >PORTEFOLIO</a>     
             <a href='/team' >MEET THE TEAM</a> 
-            {/* <a href='/about' >About</a>  */}
+            <a href='/about' >ABOUT</a> 
             </div>
 
             </div>

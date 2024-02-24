@@ -37,10 +37,10 @@ const App = () => {
 
           
           {/* Envolva as rotas de backoffice com PrivateRoute */}
-          <Route path="/backoffice" element={<PrivateRoute><BackofficeHomePage/></PrivateRoute>} />
+          {/* <Route path="/backoffice" element={<PrivateRoute><BackofficeHomePage/></PrivateRoute>} /> */}
           <Route path="/backoffice/add-project" element={<PrivateRoute><AddProjectForm /></PrivateRoute>} />
           <Route path="/backoffice/projetos/:projectId" element={<PrivateRoute><BackofficeProjectDetails /></PrivateRoute>} />
-          <Route path="/backoffice/ProjectList" element={<PrivateRoute><BackofficeProjectListPage /></PrivateRoute>} />
+          <Route path="/backoffice/" element={<PrivateRoute><BackofficeProjectListPage /></PrivateRoute>} />
 
 
           {/* Adicione uma rota para a página de login */}

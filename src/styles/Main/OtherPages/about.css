@@ -25,3 +25,60 @@
     }
   }
    */
+
+
+
+   .client-gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .client-gallery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo (incluindo a imagem) horizontalmente */
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    margin-bottom: 20px;
+    border-radius: 4px;
+    width: calc(50% - 10px); /* Por padrão, para telas menores que 825px */
+  }
+  
+  .client-photo {
+    width: 100%; /* Faz a imagem ocupar toda a largura do item da galeria */
+    height: auto; /* Mantém a proporção da imagem */
+    object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem perder suas proporções */
+    padding: 10%;
+  }
+  
+
+  .client-name {
+    font-weight: 800;
+    margin: 10px 0;
+    font-size: xx-large;
+  }
+  
+  .client-detail {
+    font-size: large;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+  }
+
+
+  
+  /* Media query para telas com largura maior que 825px */
+  @media (min-width: 825px) {
+    .client-gallery-item {
+      width: calc(25% - 15px); /* Para telas maiores que 825px, 4 itens por linha */
+    }
+
+    .client-photo{
+      padding: 12%;
+    }
+  }
+  

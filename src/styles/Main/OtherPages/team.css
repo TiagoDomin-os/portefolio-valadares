@@ -17,11 +17,62 @@
     display: block; /* Isso garante que a imagem não tenha espaço extra embaixo */
   }
   
-  /* Estilo para telas com largura até 825 pixels */
-  /* @media (max-width: 825px) {
-    .client-logo {
-      content: url('../../public/team/team_vertical.png');
-     
+  
+
+
+  .banner{
+    max-width: 1200;
+    margin: 95%;
+  }
+
+
+
+   .gallery-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens passem para a linha seguinte se não houver espaço suficiente */
+    gap: 20px; /* Espaço entre os itens da galeria */
+    justify-content: space-around; /* Espaçamento igual em torno dos itens */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 95%;
+  }
+  
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    border-radius: 4px;
+    width: 100%; /* Por padrão, cada item tomará a largura inteira do contêiner */
+  }
+  
+  /* Estilos para imagens e informações da equipe */
+  .team-photo {
+    width: 100%;
+    height: auto;
+  }
+  
+  .team-info {
+    text-align: center;
+  }
+  
+  .credit-title {
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .credit-category {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #666;
+  }
+  
+  /* Media query para telas com largura maior que 825px */
+  @media (min-width: 825px) {
+    .team-member {
+      width: calc(50% - 10px); /* Cada item tomará um pouco menos de metade da largura do contêiner para ajustar o gap */
     }
   }
-   */
+  
