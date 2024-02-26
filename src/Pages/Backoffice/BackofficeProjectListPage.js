@@ -50,9 +50,9 @@ const BackofficeProjectListPage = () => {
   const fileDeletionPromises = [];
 
   // Adicionar promessa de exclusão da imagem destacada, se houver
-  if (projectData.featuredImage) {
-    const featuredImageRef = ref(projectStorage, projectData.featuredImage);
-    fileDeletionPromises.push(deleteObject(featuredImageRef));
+  if (projectData.featuredMedia) {
+    const featuredMediaRef = ref(projectStorage, projectData.featuredMedia);
+    fileDeletionPromises.push(deleteObject(featuredMediaRef));
   }
 
   // Adicionar promessas de exclusão para cada arquivo na galeria
@@ -60,6 +60,14 @@ const BackofficeProjectListPage = () => {
     const fileRef = ref(projectStorage, fileUrl);
     fileDeletionPromises.push(deleteObject(fileRef));
   });
+
+
+  if (projectData.mp4Videos) {
+    projectData.mp4Videos.forEach((videoUrl) => {
+      const videoRef = ref(projectStorage, videoUrl);
+      fileDeletionPromises.push(deleteObject(videoRef));
+    });
+  }
 
   // Aguardar a exclusão de todos os arquivos
   try {
@@ -91,8 +99,8 @@ const BackofficeProjectListPage = () => {
           <div className="project-card" key={projeto.id}>
             <div className="project-image">
               {/* Adicione a imagem destacada aqui se disponível */}
-              {projeto.featuredImage && (
-                <img src={projeto.featuredImage} alt="Imagem Destacada" style={{ width: '100%' }} />
+              {projeto.featuredMedia && (
+                <img src={projeto.featuredMedia} alt="Imagem Destacada" style={{ width: '100%' }} />
               )}
             </div>
             <div className="project-details">
