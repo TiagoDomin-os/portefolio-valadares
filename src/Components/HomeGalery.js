@@ -6,21 +6,21 @@ import '../styles/Main/Home/HomeGalery.css';
 
 
 class Gallery extends React.Component {
-  // Método para filtrar projetos com base na categoria
+
+
+
+
+
+  
   filtrarProjetos = () => {
     const { projetos, filtroCategoria } = this.props;
-    
-    // Se 'All' for selecionado, ou nenhum filtro estiver ativo, retorna todos os projetos
-    if (filtroCategoria === 'All') {
+        if (filtroCategoria === 'All') {
       return projetos;
     }
-
-    // Caso contrário, filtra projetos que correspondem à categoria selecionada
-    return projetos.filter(projeto => projeto.categoria === filtroCategoria);
+   return projetos.filter(projeto => projeto.categoria === filtroCategoria);
   };
 
   render() {
-    // Projetos filtrados para renderização
     const projetosFiltrados = this.filtrarProjetos();
 
     return (
@@ -47,7 +47,44 @@ class Gallery extends React.Component {
         </TransitionGroup>
       </div>
     );
+    
   }
 }
 
 export default Gallery;
+
+
+
+// const FeaturedMediaGallery = ({ projetos }) => {
+//   const renderFeaturedMedia = (featuredMedia, index) => {
+//     // Primeiro, verifique se featuredMedia e featuredMedia.url estão definidos
+//     if (!featuredMedia || typeof featuredMedia.url !== 'string') {
+//       console.log(`featuredMedia or featuredMedia.url is undefined or not a string at index ${index}`);
+//       return <p>Media not available</p>;
+//     }
+
+//     // Agora, verifique se a URL termina com '.mp4' para renderizar um vídeo
+//     if (featuredMedia.url.endsWith('.mp4')) {
+//       return (
+//         <video key={index} loop autoPlay muted playsInline style={{ width: '100%', height: 'auto' }}>
+//           <source src={featuredMedia.url} type="video/mp4" />
+//           Seu navegador não suporta vídeos.
+//         </video>
+//       );
+//     } 
+//     // Caso contrário, assuma que é uma imagem
+//     else {
+//       return <img key={index} src={featuredMedia.url} alt={`Featured Media ${index}`} style={{ width: '100%', height: 'auto' }} />;
+//     }
+//   };
+
+//   return (
+//     <div className="featured-media-gallery">
+//       {projetos.map((projeto, index) => (
+//         <div key={index} className="featured-media-item">
+//           {renderFeaturedMedia(projeto.featuredMedia, index)}
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };

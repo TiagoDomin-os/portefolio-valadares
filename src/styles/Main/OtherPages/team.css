@@ -1,29 +1,7 @@
-.about-us-container {
-    padding-top: 3rem;
-    margin: auto;
-    max-width: 1200px;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-  
-  .logo-container {
-    /* Supondo que .logo-container ocupará toda a largura disponível da .about-us-container */
-    width: 100%;
-    display: block; /* Isso é necessário se .logo-container não for um elemento de bloco por padrão */
-  }
-  
-  .client-logo {
-    width: 100%;
-    display: block; /* Isso garante que a imagem não tenha espaço extra embaixo */
-  }
-  
+
   
 
 
-  .banner{
-    max-width: 1200;
-    margin: 95%;
-  }
 
 
 
@@ -32,9 +10,8 @@
     flex-wrap: wrap; /* Permite que os itens passem para a linha seguinte se não houver espaço suficiente */
     gap: 20px; /* Espaço entre os itens da galeria */
     justify-content: space-around; /* Espaçamento igual em torno dos itens */
-    padding: 20px;
-    max-width: 1200px;
-    margin: 95%;
+    width: 95%;
+    margin: auto;
   }
   
   .team-member {
@@ -58,16 +35,21 @@
   }
   
   .credit-title {
-    font-size: 1.9rem;
-    font-weight: bold;
-    margin: 10px 0;
+    font-family: 'Protest Strike', sans-serif;
+    font-weight: 800;
+    font-size: 2.0vh;
+    margin-top: 10px ;
   }
   
   .credit-category {
-    font-size: 1.2rem;
-    font-weight: normal;
+    font-family: 'Protest Strike', sans-serif;
+    font-weight: 700;
+    font-size: 1.8vh;
     color: #666;
   }
+  
+
+
   
   /* Media query para telas com largura maior que 825px */
   @media (min-width: 825px) {

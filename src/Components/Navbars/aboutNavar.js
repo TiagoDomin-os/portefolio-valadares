@@ -30,7 +30,7 @@ const AboutNavbar = () => {
           <img src='/SiteLogo.png' alt='Logo' width={150}/>
         </a>
         <div className='links'>
-          <a href='/' className='hideOnMobile'>PORTFOLIO</a>
+          {/* <a href='/' className='hideOnMobile'>PORTFOLIO</a> */}
           <a href='/team' className='hideOnMobile'>MEET THE TEAM</a> 
           {/* <a href='/about' className='hideOnMobile'>About</a> */}
         </div>
@@ -41,7 +41,7 @@ const AboutNavbar = () => {
         </li>
         <div className="togle-menu">
           <div className='mobile-links'>
-            <a href='/' >PORTFOLIO</a>     
+            {/* <a href='/' >PORTFOLIO</a>      */}
             <a href='/team' >MEET THE TEAM</a> 
             {/* <a href='/about' >About</a> */}
           </div>

@@ -29,7 +29,7 @@ const TeamNavbar = () => {
           <img src='/SiteLogo.png' alt='Logo' width={150}/>
         </a>
         <div className='links'>
-          <a href='/' className='hideOnMobile'>PORTFOLIO</a>
+          {/* <a href='/' className='hideOnMobile'>PORTFOLIO</a> */}
           <a href='/about' className='hideOnMobile'>ABOUT</a> 
           {/* <a href='/about' className='hideOnMobile'>About</a> */}
         </div>
@@ -40,7 +40,7 @@ const TeamNavbar = () => {
         </li>
         <div className="togle-menu">
           <div className='mobile-links'>
-            <a href='/' >PORTFOLIO</a>     
+            {/* <a href='/' >PORTFOLIO</a>      */}
             <a href='/about' >ABOUT</a> 
             {/* <a href='/about' >About</a> */}
           </div>

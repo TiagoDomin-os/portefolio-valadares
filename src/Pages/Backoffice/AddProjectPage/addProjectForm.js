@@ -16,26 +16,25 @@ const AddProjectForm = () => {
   const [nome, setNome] = useState('');
   const [autores, setAutores] = useState(['']);
   const [categoria, setCategoria] = useState('');
-  const [featuredImage, setFeaturedImage] = useState(null);
+  const [featuredMedia, setFeaturedMedia] = useState(null);
   const [galeria, setGaleria] = useState([]);
-
   const [featuredMp4Videos, setFeaturedMp4Videos] = useState([]);
-
-
-  const [youtubeLinks, setYoutubeLinks] = useState([]); // Estado para gerenciar os links do YouTube
+  const [youtubeLinks, setYoutubeLinks] = useState([]); 
   const navigate = useNavigate();
-
   const handleAutorChange = (e, index) => {
     const newAutores = [...autores];
     newAutores[index] = e.target.value;
     setAutores(newAutores);
   };
 
+
+
   const addAutorInput = () => {
     setAutores([...autores, '']);
   };
 
-  const removeAutorInput = (index) => {
+
+    const removeAutorInput = (index) => {
     const newAutores = autores.filter((_, idx) => idx !== index);
     setAutores(newAutores);
   };
@@ -43,7 +42,8 @@ const AddProjectForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const handleImageChange = (e) => setFeaturedImage(e.target.files[0]);
+
+  const handleMediaChange = (e) => setFeaturedMedia(e.target.files[0]);
 
   const handleGalleryChange = (e) => {
     const files = Array.from(e.target.files).filter(file =>
@@ -67,9 +67,6 @@ const AddProjectForm = () => {
     const newYoutubeLinks = youtubeLinks.filter((_, idx) => idx !== index);
     setYoutubeLinks(newYoutubeLinks);
   };
-
-
-
 
 
 
@@ -98,32 +95,50 @@ const AddProjectForm = () => {
     setIsSubmitting(true);
   
     try {
-      const imageUrl = featuredImage ? await handleUpload(featuredImage, 'featuredImages') : null;
+      // Variável para armazenar a URL da mídia destacada (imagem ou vídeo)
+      let featuredMediaUrl = null;
+  
+      // Verifica se algum arquivo foi selecionado para a mídia destacada
+      if (featuredMedia) {
+        // Determina o tipo da mídia (baseado na extensão do arquivo) e define a pasta de upload
+        const mediaType = featuredMedia.type.split('/')[0]; // 'image' ou 'video'
+        const uploadFolder = mediaType === 'image' ? 'featuredMedia' : 'featuredMedia';
+  
+        // Faz o upload do arquivo e armazena a URL retornada
+        featuredMediaUrl = await handleUpload(featuredMedia, uploadFolder);
+      }
+  
+      // Processa o upload da galeria de imagens
       const galleryUrls = await Promise.all(galeria.map(file => handleUpload(file, 'gallery')));
+  
       const mp4VideoUrls = await Promise.all(featuredMp4Videos.map(file => handleUpload(file, 'mp4Videos')));
 
+      // Adiciona o novo projeto ao Firestore com a mídia destacada (imagem ou vídeo) sob o mesmo campo
       await addDoc(collection(projectFirestore, 'projetos'), {
         nome,
         autores,
         categoria,
-        featuredImage: imageUrl,
+        featuredMedia: featuredMediaUrl, // Armazena a URL da mídia destacada (imagem ou vídeo)
         youtubeLinks,
-        galeria: galleryUrls.filter(url => url !== null),
+        galeria: galleryUrls.filter(url => url !== null), // Filtra URLs nulas da galeria
         mp4Videos: mp4VideoUrls,  // Armazenar os URLs dos vídeos .mp4
-        slug: createSlug(nome), // Adiciona o slug aqui
+        slug: createSlug(nome), // Utiliza a função de criação de slug
       });
   
       console.log("Projeto adicionado com sucesso.");
       alert('Projeto adicionado com sucesso!');
       navigate('/backoffice');
-      // Reset dos campos aqui...
+      // Aqui você pode adicionar a lógica de reset dos campos, se necessário
     } catch (error) {
       console.error("Erro ao adicionar projeto: ", error);
+      alert('Erro ao adicionar projeto.');
     } finally {
       setIsSubmitting(false);
-      setUploadProgress(0);
+      setUploadProgress(0); // Reseta o progresso de upload, se aplicável
     }
   };
+  
+  
 
  
   const handleMp4VideoChange = (e) => {
@@ -162,10 +177,22 @@ const AddProjectForm = () => {
           </select>
         </div>
 
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="featuredImage" className="form-label">Imagem Destacada</label>
           <input type="file" className="form-control" id="featuredImage" onChange={handleImageChange} />
+        </div> */}
+
+        <div className="mb-3">
+          <label htmlFor="featuredMedia" className="form-label">Mídia Destacada</label>
+          <input
+            type="file"
+            className="form-control"
+            id="featuredMedia"
+            accept="image/*,video/mp4"
+            onChange={handleMediaChange}
+          />
         </div>
+
 
         {youtubeLinks.map((link, index) => (
           <div key={index} className="mb-3 d-flex">

@@ -6,7 +6,7 @@
   width: 95%;
   margin: auto;
   min-height: 80vh;
-  max-width: 1300px;
+  /* max-width: 1500px; */
 }
 
 .gallery {
@@ -172,4 +172,32 @@ margin-top: 15px;    }
   height: 0;
   padding-bottom: 56.25%; 
   background-color: #e0e0e0;
+}
+
+
+
+
+
+
+/*  */
+
+
+
+.featured-media-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre itens */
+  justify-content: center; /* Centraliza os itens */
+}
+
+.featured-media-item {
+  width: calc(33.333% - 20px); /* Três itens por linha com espaçamento */
+  overflow: hidden; /* Previne que o conteúdo exceda o tamanho do item */
+}
+
+.media-video,
+.media-image {
+  width: 100%; /* Faz com que o vídeo ou a imagem preencha o item */
+  height: auto; /* Mantém a proporção */
+  display: block; /* Remove espaços abaixo das imagens */
 }

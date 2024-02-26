@@ -6,7 +6,7 @@ import AboutNavbar from '../Components/Navbars/aboutNavar';
 const AboutUs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const imageUrl = windowWidth <= 825 ? '/about/tryBout.png' : '/about/tryBout.png';
+  const imageUrl = windowWidth <= 825 ? '/claqueteWhite.png' : '/claqueteWhite.png';
   const BannerimageUrl = windowWidth <= 825 ? '/about/aboutUsBanner.png' : '/about/aboutUsBanner.png';
 
   useEffect(() => {
@@ -24,10 +24,25 @@ const AboutUs = () => {
   return (
     <>
       <AboutNavbar />
+
+
+      <div className="logo-title-text">
+          
+          <img src={imageUrl} alt="Client Logo" className="client-logo"  />
+          <div className="about-title">ABOUT US</div>
+          <p className="about-text">
+            WE TAKE PRIDE IN BRINGING OUR CLIENT’S VISION TO LIFE. TOGETHER WE MAKE YOUR DREAMS, A VIVID REALITY.<br></br><br></br> BASED IN LISBON & WARSAW.
+          </p>
+        </div>
       <div className="about-us-container">
         <div className="logo-grid">
           <div className="logo-container">
-          <img src={BannerimageUrl} alt="Client Logo" className="client-logo" />
+
+
+        
+
+
+          {/* <img src={BannerimageUrl} alt="Client Logo" className="client-logo" /> */}
 
             {/* <img src={imageUrl} alt="Client Logo" className="client-logo" /> */}
 
@@ -48,11 +63,8 @@ const ClientGallery = () => {
   return (
     <>
 
-    <div>
-    <p className="client-name">CLIENTS</p>
-
-    </div>
-    <div className="client-gallery-container" style={{ maxWidth: '1200px', margin: 'auto', padding: '20px' }}>
+    
+    <div className="client-gallery-container" >
 
 
 
@@ -96,14 +108,14 @@ const ClientGallery = () => {
         </div>
 
         
-        <div className="client-gallery-item">
+        {/* <div className="client-gallery-item">
         <img src="/about/clientes/10.png" alt="Cliente 1" className="client-photo" />
-        </div>
+        </div> */}
 
         
-        <div className="client-gallery-item">
+        {/* <div className="client-gallery-item">
         <img src="/about/clientes/11.png" alt="Cliente 1" className="client-photo" />
-        </div>
+        </div> */}
 
         
         <div className="client-gallery-item">
@@ -114,8 +126,14 @@ const ClientGallery = () => {
         <div className="client-gallery-item">
         <img src="/about/clientes/13.png" alt="Cliente 1" className="client-photo" />
         </div>
+
+        <div className="client-gallery-item">
+        <img src="/about/clientes/14.png" alt="Post Malone" className="client-photo" />
+        </div>
+
+
     </div>
-    <p className="client-detail">AND MANY MORE</p>
+    <p className="client-detail">and many more clients.</p>
 
     </>
   );

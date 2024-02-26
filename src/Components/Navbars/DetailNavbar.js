@@ -36,7 +36,7 @@ const DetailNavbar = () => {
              
              {/* <a href='/team' className='hideOnMobile'>MEET THE TEAM</a>  */}
             {/* <a href='/about' className='hideOnMobile'>About</a>  */}
-            <a href='/' className='hideOnMobile'>PORTEFOLIO</a> 
+            <a href='/about' className='hideOnMobile'>ABOUT</a> 
 
             </div>
 
@@ -53,7 +53,7 @@ const DetailNavbar = () => {
             
             
             <div className='mobile-links'>
-            <a href='/' >PORTEFOLIO</a>     
+            {/* <a href='/' >PORTEFOLIO</a>      */}
             <a href='/team' >MEET THE TEAM</a> 
             <a href='/about' >ABOUT</a> 
             </div>

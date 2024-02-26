@@ -1,83 +1,126 @@
+/* Estilos Gerais */
 .about-us-container {
-    /* padding-top: 3rem; */
-    /* margin: auto; */
-    max-width: 1200px;
-    
-  }
-  
-  .logo-container {
-    /* Supondo que .logo-container ocupará toda a largura disponível da .about-us-container */
-    width: 100%;
-    display: block; /* Isso é necessário se .logo-container não for um elemento de bloco por padrão */
-    max-width: 1200;
-  }
-  
-  .client-logo {
-    width: 100%;
-    display: block; /* Isso garante que a imagem não tenha espaço extra embaixo */
-  }
-  
-  /* Estilo para telas com largura até 825 pixels */
-  /* @media (max-width: 825px) {
-    .client-logo {
-      content: url('../../public/about/vertical.png'); 
-      
-    }
-  }
-   */
+  padding-top: 3rem;
+  margin: auto;
+  /* max-width: 1500px; */
+}
 
+.logo-container {
+  width: 95%;
+  display: block;
+  max-width: 1800px; 
+  margin: auto;
+}
 
+/* Estilos para a galeria de clientes */
+.client-gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Centraliza os itens da galeria */
+  padding: 20px;
+  margin: auto;
+}
 
-   .client-gallery-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-  }
-  
+.client-gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  margin-bottom: 20px;
+  border-radius: 4px;
+  width: calc(25% - 20px); /* 4 itens por linha */
+  margin: auto;
+}
+
+.client-photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Estilos para o texto dos clientes */
+.client-name {
+  font-weight: 800;
+  margin: 10px 0;
+  font-size: xx-large;
+}
+
+.client-detail {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+}
+
+/* Estilos para o cabeçalho e texto da seção 'Sobre nós' */
+.logo-title-text {
+  height: 25%;
+  width: 95%;
+  /* max-width: 1500px; */
+  margin: 0 auto;
+  padding-left: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+  background-color: black;
+  font-family: 'Protest Strike', sans-serif;
+}
+
+.about-title {
+  font-size: 5vw;
+  font-weight: 900;
+  margin: 10px 0;
+
+}
+
+.team-title{
+  margin-bottom: 6%;
+  font-size: 5vw;
+  font-weight: 900;
+}
+
+.about-text {
+  font-size: 3.5vw;
+  line-height: 1.5;
+  max-width: 95%;
+  margin-bottom: 6%;
+}
+
+/* Media Queries */
+/* @media (max-width: 824px) {
   .client-gallery-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo (incluindo a imagem) horizontalmente */
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
-    margin-bottom: 20px;
-    border-radius: 4px;
-    width: calc(50% - 10px); /* Por padrão, para telas menores que 825px */
+    width: calc(25% - 20px);
   }
-  
-  .client-photo {
-    width: 100%; /* Faz a imagem ocupar toda a largura do item da galeria */
-    height: auto; /* Mantém a proporção da imagem */
-    object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem perder suas proporções */
-  }
-  
+} */
 
-  .client-name {
-    font-weight: 800;
-    margin: 10px 0;
-    font-size: xx-large;
+@media (min-width: 825px) {
+  /* Para telas maiores que 825px, mantemos 4 itens por linha como padrão */
+  .logo-title-text {
+    height: auto;
   }
-  
+
+
   .client-detail {
-    font-size: large;
-    font-weight: bold;
-    color: #000000;
-    text-align: center;
-  }
-
-
+    font-size: large;}
   
-  /* Media query para telas com largura maior que 825px */
-  @media (min-width: 825px) {
     .client-gallery-item {
-      width: calc(25% - 15px); /* Para telas maiores que 825px, 4 itens por linha */
+      width: calc(15% - 20px);
     }
 
-    .client-photo{
-      padding: 12%;
-    }
+  .about-title {
+    font-size: 5vw;
   }
-  
+
+  .about-text {
+    font-size: 2vw;
+  }
+}
+
+/* Estilo para o logo na parte superior */
+.client-logo {
+  margin-top: 6%;
+  width: 15%;
+  display: block;
+}

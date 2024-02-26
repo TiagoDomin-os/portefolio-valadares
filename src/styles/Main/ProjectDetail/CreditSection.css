@@ -8,9 +8,9 @@
   line-height: 1.6; /* Espaçamento entre linhas */
   display: flex; /* Usa flexbox para alinhamento */
   flex-direction: column; /* Elementos empilhados verticalmente */
-  width: 70%; /* Largura consistente com .detail-gallery */
+  width: 95%; /* Largura consistente com .detail-gallery */
   margin: auto; /* Centraliza na página */
-  max-width: 1200px;
+  max-width: 2200px;
 }
 
 .credit-title {

@@ -9,7 +9,7 @@
     margin: 0 auto; /* Margens automáticas para centralizar a navbar */
     overflow: hidden;
     min-height: 100px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 
     
     font-family: "Protest Strike", sans-serif;
@@ -49,7 +49,7 @@
   
   
   .navbar :nth-child(0){
-    width: 20%;
+    width: 15%;
   }
   
   #logo{
@@ -101,7 +101,7 @@
     text-decoration: none;
     color: black;
     /* margin-right: 20px; */
-    /* font-weight: 400; */
+    font-weight: 400;
   }
    
   
@@ -179,7 +179,7 @@
   
   
     .navbar{
-      width: 85%;
+      width: 95%;
     }  
   
   
