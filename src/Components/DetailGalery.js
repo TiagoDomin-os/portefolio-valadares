@@ -17,12 +17,19 @@ const DetailGallery = ({ media }) => {
       return <img src={thumbnailUrl} alt={`YouTube Thumbnail ${index}`} onClick={() => handleClick(item)} />;
     } else if (item.type === 'mp4') {
       return (
-        <div className="thumbnail-video" key={index} onClick={() => handleClick(item)}>
-        <video key={index} loop autoPlay muted  style={{ width: '100%', height: 'auto' }} onClick={() => handleClick(item)}>
-          <source src={item.url} type="video/mp4" />
-          Seu navegador não suporta vídeos.
-        </video>
-       </div>
+        <div className="thumbnail-video" key={index}>
+          <video 
+            key={index} 
+            loop 
+            autoPlay 
+            muted 
+            playsInline
+            style={{ width: '100%', height: 'auto', objectFit: 'cover' }} // Adicionado objectFit para manter aspect ratio
+          >
+            <source src={item.url} type="video/mp4" />
+            Seu navegador não suporta vídeos.
+          </video>
+        </div>
       );
     }
   };

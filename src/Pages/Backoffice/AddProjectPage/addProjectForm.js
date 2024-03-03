@@ -210,14 +210,14 @@ const AddProjectForm = () => {
 
 
         <div className="mb-3">
-        <label htmlFor="featuredMovVideo" className="form-label">Vídeo em Destaque .mp4</label>
+        <label htmlFor="featuredMovVideo" className="form-label">Videos Galeria .mp4</label>
                 <input 
           type="file" 
           className="form-control" 
           id="featuredMp4Video" 
           onChange={handleMp4VideoChange} 
           accept=".mp4"
-          multiple  // Para permitir a seleção de múltiplos ficheiros
+          multiple  
         />
       </div>
 

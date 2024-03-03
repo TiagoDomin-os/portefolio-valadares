@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { ref, deleteObject, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Adicione a importação para referenciar e deletar objetos no Firebase Storage
 import { projectFirestore, projectStorage } from '../../firebase/config';
-import FileUploader from '../Backoffice/AddProjectPage/fileUploaded';
 import BackofficeNavbar from '../../Components/Navbars/BackofficeNavbar';
-import { ref, deleteObject } from "firebase/storage";
-
-const fileUploader = new FileUploader(projectStorage);
 
 const BackofficeProjectDetails = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
-  const [nome, setNome] = useState('');
-  const [autores, setAutores] = useState(['']);
-  const [categoria, setCategoria] = useState('');
-  const [newFeaturedImage, setNewFeaturedImage] = useState(null);
-  const [youtubeLinks, setYoutubeLinks] = useState([]);
-  const [galeria, setGaleria] = useState([]);
+  const [project, setProject] = useState({
+    nome: '',
+    autores: [''],
+    categoria: '',
+    featuredMedia: null,
+    galeria: [],
+    youtubeLinks: [],
+    mp4Videos: [], 
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [existingData, setExistingData] = useState({});
+  const [uploadProgress, setUploadProgress] = useState(0); // Para rastrear o progresso de upload
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -28,13 +30,7 @@ const BackofficeProjectDetails = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const data = docSnap.data();
-        setExistingData(data);
-        setNome(data.nome);
-        setAutores(data.autores || ['']);
-        setCategoria(data.categoria);
-        setYoutubeLinks(data.youtubeLinks || []);
-        setGaleria(data.galeria || []);
+        setProject(docSnap.data());
       } else {
         alert('Projeto não encontrado!');
         navigate('/backoffice');
@@ -45,225 +41,228 @@ const BackofficeProjectDetails = () => {
     fetchProject();
   }, [projectId, navigate]);
 
-  const handleAutorChange = (index, newValue) => {
-    const updatedAutores = [...autores];
-    updatedAutores[index] = newValue;
-    setAutores(updatedAutores);
-  };
-  
-
-  const addAutorInput = () => {
-    setAutores([...autores, '']);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProject(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const removeAutorInput = (index) => {
-    const filteredAutores = autores.filter((_, i) => i !== index);
-    setAutores(filteredAutores);
-  };
-  
-
-  const handleImageChange = (e) => {
-    if (e.target.files[0]) {
-      setNewFeaturedImage(e.target.files[0]);
-    }
+  const handleArrayChange = (e, index, field) => {
+    const updatedArray = [...project[field]];
+    updatedArray[index] = e.target.value;
+    setProject(prevState => ({ ...prevState, [field]: updatedArray }));
   };
 
-  const handleGalleryChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    setGaleria([...galeria, ...newFiles]);
+  const addArrayItem = (field, value = '') => {
+    setProject(prevState => ({ ...prevState, [field]: [...prevState[field], value] }));
   };
 
-  const handleYoutubeLinkChange = (index, value) => {
-    const updatedLinks = [...youtubeLinks];
-    updatedLinks[index] = value;
-    setYoutubeLinks(updatedLinks);
+  const removeArrayItem = (index, field) => {
+    const updatedArray = project[field].filter((_, i) => i !== index);
+    setProject(prevState => ({ ...prevState, [field]: updatedArray }));
   };
 
-  const addYoutubeLinkInput = () => {
-    setYoutubeLinks([...youtubeLinks, '']);
-  };
-
-  const removeYoutubeLinkInput = (index) => {
-    const updatedLinks = youtubeLinks.filter((_, idx) => idx !== index);
-    setYoutubeLinks(updatedLinks);
-  };
-
-  const removeGalleryItem = async (index) => {
-    const itemToRemove = galeria[index];
-    if (typeof itemToRemove === "string") {
-      const fileRef = ref(projectStorage, itemToRemove);
-      try {
-        await deleteObject(fileRef);
-        const updatedGaleria = existingData.galeria.filter((_, idx) => idx !== index);
-        await updateDoc(doc(projectFirestore, 'projetos', projectId), { galeria: updatedGaleria });
-      } catch (error) {
-        console.error("Erro ao remover arquivo do Storage:", error);
+  const handleMediaUpload = (e, field) => {
+    const files = Array.from(e.target.files);
+    files.forEach(file => {
+      // Determinar o caminho de armazenamento com base no tipo de mídia
+      const mediaType = file.type.split('/')[0]; // 'image' ou 'video'
+      let storagePath = '';
+      if (mediaType === 'image') {
+        storagePath = `images/${file.name}`;
+      } else if (mediaType === 'video') {
+        storagePath = `videos/${file.name}`;
       }
-    } else {
-      const updatedGaleria = galeria.filter((_, idx) => idx !== index);
-      setGaleria(updatedGaleria);
+  
+      const storageRef = ref(projectStorage, storagePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setUploadProgress(progress);
+        },
+        (error) => {
+          setErrorMessage('Falha no upload: ' + error.message);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            // Atualizar o estado com a URL do arquivo carregado
+            setProject(prevState => ({
+              ...prevState,
+              [field]: [...prevState[field], downloadURL]
+            }));
+          });
+        }
+      );
+    });
+  };
+  
+
+  const removeMediaItem = async (index, field, isURL = false) => {
+    const updatedArray = project[field].filter((_, i) => i !== index);
+    setProject(prevState => ({ ...prevState, [field]: updatedArray }));
+
+    if (isURL) {
+      // Remova o arquivo do Firebase Storage se for uma URL
+      const fileRef = ref(projectStorage, project[field][index]);
+      await deleteObject(fileRef);
     }
   };
 
   const handleUpdateProject = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSuccessMessage('');
+    setErrorMessage('');
 
     try {
-      let imageUrl = existingData.featuredImage;
-      if (newFeaturedImage) {
-        const uploadResult = await fileUploader.uploadFile(newFeaturedImage, 'featuredImages', setUploadProgress);
-        if (uploadResult) {
-          imageUrl = uploadResult;
-        } else {
-          // Se o upload falhar, mantém a imagem existente ou define uma fallback
-          imageUrl = existingData.featuredImage || 'URL_DA_IMAGEM_PADRAO';
-        }
-      }
-
-      const autoresList = autores.filter(autor => autor.trim() !== '');
-
-
-      const newGalleryUrls = await Promise.all(galeria.map(file =>
-        !(file instanceof File) ? file : fileUploader.uploadFile(file, 'gallery', (progress) => setUploadProgress(progress))
-      ));
-
-      const updatedProject = {
-        nome,
-        autores,
-        categoria,
-        featuredImage: imageUrl,
-        youtubeLinks,
-        galeria: newGalleryUrls.filter(url => url !== undefined) // Filtra URLs indefinidas
-      };
-
-      await updateDoc(doc(projectFirestore, 'projetos', projectId), updatedProject);
-      alert('Projeto atualizado com sucesso!');
-      navigate('/backoffice');
+      await updateDoc(doc(projectFirestore, 'projetos', projectId), project);
+      setSuccessMessage('Projeto atualizado com sucesso!');
+      setTimeout(() => navigate('/backoffice'), 2000);
     } catch (error) {
-      alert(`Erro ao atualizar projeto: ${error.message}`);
-      console.error("Erro ao atualizar projeto: ", error);
+      setErrorMessage(`Erro ao atualizar o projeto: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
   };
+
+
+
+
+  const renderMediaPreview = (media) => {
+    if (!media) return null;
+  
+    const isImage = typeof media === 'string' ? media.match(/\.(jpeg|jpg|gif|png)$/) != null : media.type.startsWith('image/');
+    const isVideo = typeof media === 'string' ? media.match(/\.(mp4|webm)$/) != null : media.type.startsWith('video/');
+  
+    if (isImage) {
+      const imageUrl = typeof media === 'string' ? media : URL.createObjectURL(media);
+      return <img src={imageUrl} alt="Imagem" style={{ maxWidth: '100px', maxHeight: '100px' }} />;
+    } else if (isVideo) {
+      const videoUrl = typeof media === 'string' ? media : URL.createObjectURL(media);
+      return <video src={videoUrl} alt="Vídeo" style={{ maxWidth: '100px', maxHeight: '100px' }} controls />;
+    }
+  };
+  
 
   return (
     <>
       <BackofficeNavbar />
       <div className="container mt-5">
         <h2>Editar Projeto</h2>
-        {isSubmitting ? <p>Atualizando projeto...</p> : (
-          <form onSubmit={handleUpdateProject} className="mb-3">
- {/* Nome do Projeto */}
- <div className="mb-3">
-              <label htmlFor="nome" className="form-label">Nome do Projeto</label>
-              <input type="text" className="form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
-            </div>
+        <form onSubmit={handleUpdateProject}>
+          <div className="mb-3">
+            <label htmlFor="nome" className="form-label">Nome do Projeto</label>
+            <input type="text" className="form-control" id="nome" name="nome" value={project.nome} onChange={handleChange} />
+          </div>
 
-            {/* Autores */}
-            <label htmlFor="nome" className="form-label">Autores</label>
-
-            {autores.map((autor, index) => (
-  <div key={index} className="mb-3 d-flex">
-    <input
-      type="text"
-      className="form-control"
-      value={autor}
-      onChange={(e) => handleAutorChange(index, e.target.value)}
-      placeholder="Nome do Autor"
-    />
-    <button type="button" className="btn btn-danger ml-2" onClick={() => removeAutorInput(index)}>
-      Remover
-    </button>
-  </div>
-))}
-<button type="button" className="btn btn-secondary" onClick={addAutorInput}>Adicionar Autor</button>
-
-
-
-            {/* Categoria */}
-            <div className="mb-3">
-              <label htmlFor="categoria" className="form-label">Categoria</label>
-              <select className="form-control" id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
-                <option value="">Selecione uma Categoria</option>
-                <option value="Corporate">Corporate</option>
-                <option value="After Movie">After Movie</option>
-                <option value="Commercial">Commercial</option>
-                {/* Adicione mais opções de categoria conforme necessário */}
-              </select>
-            </div>
-
-           {/* {/* Imagem em Destaque }
-            <div className="mb-3">
-              <label htmlFor="featuredImage" className="form-label">Imagem em Destaque</label>
-              <input type="file" className="form-control" id="featuredImage" onChange={handleImageChange} />
-              {existingData.featuredImage && (
-                <div className="mt-2">
-                  <img src={existingData.featuredImage} alt="Imagem em destaque atual" style={{ maxWidth: '200px' }} />
-                </div>
-              )}
-            </div>*/}
-
-            {/* Links do YouTube */}
-            <div className="mb-3">
-              <label htmlFor="youtubeLinks" className="form-label">Links do YouTube</label>
-              {youtubeLinks.map((link, index) => (
-                <div key={index} className="d-flex mb-2">
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={link}
-                    onChange={(e) => handleYoutubeLinkChange(index, e.target.value)}
-                    placeholder="Insira o link do YouTube"
-                  />
-                  <button type="button" className="btn btn-danger ml-2" onClick={() => removeYoutubeLinkInput(index)}>
-                    Remover
-                  </button>
-                </div>
-              ))}
-              <button type="button" className="btn btn-secondary" onClick={addYoutubeLinkInput}>
-                Adicionar Link do YouTube
-              </button>
-            </div>
-
-         {/*   <div className="mb-3">
-  <label htmlFor="galeria" className="form-label">Galeria de Imagens</label>
-  <input type="file" className="form-control" id="galeria" multiple onChange={handleGalleryChange} />
-  <div className="mt-2">
-    {existingData.galeria && existingData.galeria.map((url, index) => (
-      <div key={index} className="d-flex align-items-center mb-2">
-        <img src={url} alt={`Imagem ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} />
-        <button type="button" className="btn btn-danger ml-2" onClick={() => removeGalleryItem(url, 'existing')}>
-          Remover
-        </button>
-      </div>
-    ))}
-    {galeria.filter(file => file instanceof File).map((file, index) => (
-      <div key={`new-${index}`} className="d-flex align-items-center mb-2">
-        <img src={URL.createObjectURL(file)} alt={`Nova imagem ${index}`} style={{ maxWidth: '100px', maxHeight: '100px' }} onLoad={() => URL.revokeObjectURL(file)} />
-        <button type="button" className="btn btn-danger ml-2" onClick={() => removeGalleryItem(index, 'new')}>
-          Remover
-        </button>
-      </div>
-    ))}
-  </div>
-  </div> */}
-
-          {/* Indicador de Progresso de Upload, colocado fora do loop da galeria */}
-          {isSubmitting && (
-            <div className="progress mt-3">
-              <div className="progress-bar" role="progressbar" style={{ width: `${uploadProgress}%` }} aria-valuenow={uploadProgress} aria-valuemin="0" aria-valuemax="100">
-                {uploadProgress.toFixed(0)}%
+          {project.autores.map((autor, index) => (
+            <div key={index} className="mb-3">
+              <label htmlFor={`autor-${index}`} className="form-label">Autor {index + 1}</label>
+              <div className="input-group">
+                <input type="text" className="form-control" value={autor} onChange={(e) => handleArrayChange(e, index, 'autores')} />
+                <button type="button" className="btn btn-danger" onClick={() => removeArrayItem(index, 'autores')}>Remover</button>
               </div>
             </div>
-          )}
+          ))}
+          <div className="mb-3">
+            <button type="button" className="btn btn-secondary" onClick={() => addArrayItem('autores')}>Adicionar Autor</button>
+          </div>
 
-          {/* Botão para salvar as alterações */}
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-            Salvar Alterações
-          </button>          </form>
+          <div className="mb-3">
+            <label htmlFor="categoria" className="form-label">Categoria</label>
+            <select className="form-control" id="categoria" name="categoria" value={project.categoria} onChange={handleChange}>
+              <option value="">Selecione uma Categoria</option>
+              <option value="CORPORATE">Corporate</option>
+              <option value="AFTERMOVIE">AfterMovie</option>
+              <option value="COMMERCIAL">Commercial</option>
+              {/* Adicione outras opções de categorias conforme necessário */}
+            </select>
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="featuredMedia" className="form-label">Mídia em Destaque</label>
+            <input type="file" className="form-control" id="featuredMedia" onChange={(e) => handleMediaUpload(e, 'featuredMedia')} />
+            <div className="mt-2">{renderMediaPreview(project.featuredMedia)}</div>
+            {project.featuredMedia && (
+              <button type="button" className="btn btn-danger mt-2" onClick={() => removeMediaItem(null, 'featuredMedia', typeof project.featuredMedia === 'string')}>Remover Mídia</button>
+            )}
+          </div>
+
+
+
+            {/* Galeria de Imagens */}
+            <div className="mb-3">
+              <label className="form-label">Galeria de Imagens</label>
+              <input
+                type="file"
+                className="form-control"
+                multiple
+                onChange={(e) => handleMediaUpload(e, 'galeria')}
+              />
+              <div className="mt-2">
+                {project.galeria.map((img, index) => (
+                  <div key={index} className="d-flex align-items-center mb-2">
+                    <div className="me-2">{typeof img === 'string' ? img : img.name}</div>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => removeMediaItem(index, 'galeria', typeof img === 'string')}
+                    >
+                      Remover
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          {/* Seção de Vídeos */}
+<div className="mb-3">
+  <label className="form-label">Vídeos em Destaque (.mp4)</label>
+  <input
+    type="file"
+    className="form-control"
+    multiple
+    accept=".mp4"
+    onChange={(e) => handleMediaUpload(e, 'mp4Videos')}
+  />
+  <div className="mt-2">
+    {project.mp4Videos.map((videoUrl, index) => (
+      <div key={index} className="d-flex flex-column align-items-center mb-2">
+        {/* Verifica se a variável video é uma URL e, em caso afirmativo, renderiza o elemento video */}
+        {typeof videoUrl === 'string' && (
+          <video 
+            src={videoUrl} 
+            controls 
+            style={{ maxWidth: '300px', maxHeight: '300px' }} 
+          >
+            Seu navegador não suporta a tag de vídeo.
+          </video>
         )}
+        <div className="mt-2">{typeof videoUrl === 'string' ? videoUrl : videoUrl.name}</div>
+        <button
+          type="button"
+          className="btn btn-danger mt-2"
+          onClick={() => removeMediaItem(index, 'mp4Videos', typeof videoUrl === 'string')}
+        >
+          Remover
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
+
+            {/* Botão de Submissão com Progresso */}
+        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+          {isSubmitting ? `Salvando... ${uploadProgress.toFixed(0)}%` : 'Salvar Alterações'}
+        </button>
+
+        {/* Mensagens de Sucesso ou Erro */}
+        {successMessage && <div className="alert alert-success">{successMessage}</div>}
+        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+          </form>
+        )
       </div>
     </>
   );

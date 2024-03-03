@@ -6,21 +6,24 @@ import '../styles/Main/Home/HomeGalery.css';
 class Gallery extends React.Component {
 
   renderMedia(mediaUrl, index) {
-    if (!mediaUrl) return <div className="gallery-item-skeleton">Loading...</div>;
+    // if (!mediaUrl) return <div className="gallery-item-skeleton">Loading...</div>;
 
     if (mediaUrl.endsWith('.mp4')) {
       return (
         <div className="thumbnail-video" key={index}>
-          <video loop autoPlay muted style={{ width: '100%', height: 'auto' }}>
-            <source src={mediaUrl} type="video/mp4" />
-            Seu navegador não suporta vídeos.
-          </video>
+        <video loop autoPlay muted playsInline style={{ width: '100%', height: 'auto' }}>
+  <source src={mediaUrl} type="video/mp4" />
+  Seu navegador não suporta vídeos.
+</video>
         </div>
       );
     } else {
       return <img src={mediaUrl} alt={`Featured Media ${index}`} className="gallery-item-img" />;
     }
   }
+  
+  
+  
 
   filtrarProjetos = () => {
     const { projetos, filtroCategoria } = this.props;

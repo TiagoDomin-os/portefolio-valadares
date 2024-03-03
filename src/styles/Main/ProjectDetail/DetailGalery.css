@@ -42,7 +42,7 @@
 }
 
 .thumbnail {
-  flex: 1 0 calc(20% - 10px); /* Ajuste para 5 itens por linha com espaçamento */
+  flex: 0 0 calc(20% - 10px); /* Ajuste para 5 itens por linha com espaçamento */
   max-width: calc(20% + 10px); /* Limita o máximo de largura para manter a consistência */
   cursor: pointer; /* Muda o cursor para indicar que é clicável */
 }
