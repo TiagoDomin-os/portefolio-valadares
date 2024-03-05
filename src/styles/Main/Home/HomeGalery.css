@@ -80,7 +80,7 @@
 }
 
 /*Estilismo imagem*/
-.gallery-item img {
+.gallery-item img,.gallery-item video  {
   position: absolute;
   top: 50%;
   left: 50%;

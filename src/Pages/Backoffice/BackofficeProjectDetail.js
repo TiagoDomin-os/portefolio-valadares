@@ -230,7 +230,6 @@ const BackofficeProjectDetails = () => {
   <div className="mt-2">
     {project.mp4Videos.map((videoUrl, index) => (
       <div key={index} className="d-flex flex-column align-items-center mb-2">
-        {/* Verifica se a variável video é uma URL e, em caso afirmativo, renderiza o elemento video */}
         {typeof videoUrl === 'string' && (
           <video 
             src={videoUrl} 
